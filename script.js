@@ -4,24 +4,32 @@ is registered for the set time. This time can be adjusted by changing the value
 for the variable pageReloadsAfterX.
 */
 
+//Get the current time in milliseconds
 let time = new Date().getTime();
+let timeoutId;
+
+//Call function to get time in milliseconds of user activity
 const setActivityTime = (e) => {
   time = new Date().getTime();
+  resetTimer();
 }
 
 document.body.addEventListener("mousemove", setActivityTime);
 document.body.addEventListener("keypress", setActivityTime);
 
-const refresh = () => {
-
-  //To adjust reload frequency, change the value for pageReloadsAfterX. 
-  //The value is in milliseconds, so 60 seconds would be 60000
-  let pageReloadsAfterX = 60000;
-
-  if (new Date().getTime() - time >= pageReloadsAfterX) {
-    window.location.reload(true);
-  } else {
-    setTimeout(refresh, 10000);
-  }
+const resetTimer = () => {
+  clearTimeout(timeoutId);
+  timeoutId = setTimeout(() => {
+    if (new Date().getTime() - time >= 60000) {
+      refresh();
+    } else {
+      resetTimer();
+    }
+  }, 10000);
 }
-setTimeout(refresh, 10000);
+
+const refresh = () => {
+  window.location.reload(true);
+}
+
+resetTimer();
