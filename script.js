@@ -1,35 +1,94 @@
-/*
-This script will automatically refresh the page after no activity (mouse or keyboard)
-is registered for the set time. This time can be adjusted by changing the value
-for the variable pageReloadsAfterX.
-*/
+// This function detects user activity and sets a timer to refresh the page
+// after 60 seconds of inactivity.
+function detectUserActivity() {
+  // Get the current time.
+  let currentTime = new Date();
 
-//Get the current time in milliseconds
-let time = new Date().getTime();
-let timeoutId;
+  // Set a timer to refresh the page after 60 seconds.
+  let timer = setTimeout(function() {
+    // Refresh the page.
+    window.location.reload();
+  }, 60000);
 
-//Call function to get time in milliseconds of user activity
-const setActivityTime = (e) => {
-  time = new Date().getTime();
-  resetTimer();
-}
+  // Listen for user activity.
+  window.addEventListener("mousemove", function() {
+    // Clear the timer so that the page does not refresh.
+    clearTimeout(timer);
 
-document.body.addEventListener("mousemove", setActivityTime);
-document.body.addEventListener("keypress", setActivityTime);
+    // Get the current time.
+    let currentTime = new Date();
 
-const resetTimer = () => {
-  clearTimeout(timeoutId);
-  timeoutId = setTimeout(() => {
-    if (new Date().getTime() - time >= 60000) {
-      refresh();
-    } else {
-      resetTimer();
+    // Set a new timer to refresh the page after 60 seconds.
+    let newTimer = setTimeout(function() {
+      // Refresh the page.
+      window.location.reload();
+    }, 60000);
+
+    // Check if the timer has been running for more than 60 seconds.
+    if (Date.now() - currentTime > 60000) {
+      // If so, clear the timer and set a new one.
+      clearTimeout(newTimer);
+      newTimer = setTimeout(function() {
+        // Refresh the page.
+        window.location.reload();
+      }, 60000);
     }
-  }, 10000);
+  });
+
+  window.addEventListener("click", function() {
+    // Clear the timer so that the page does not refresh.
+    clearTimeout(timer);
+
+    // Get the current time.
+    let currentTime = new Date();
+
+    // Set a new timer to refresh the page after 60 seconds.
+    let newTimer = setTimeout(function() {
+      // Refresh the page.
+      window.location.reload();
+    }, 60000);
+
+    // Check if the timer has been running for more than 60 seconds.
+    if (Date.now() - currentTime > 60000) {
+      // If so, clear the timer and set a new one.
+      clearTimeout(newTimer);
+      newTimer = setTimeout(function() {
+        // Refresh the page.
+        window.location.reload();
+      }, 60000);
+    }
+  });
+
+  window.addEventListener("keydown", function() {
+    // Clear the timer so that the page does not refresh.
+    clearTimeout(timer);
+
+    // Get the current time.
+    let currentTime = new Date();
+
+    // Set a new timer to refresh the page after 60 seconds.
+    let newTimer = setTimeout(function() {
+      // Refresh the page.
+      window.location.reload();
+    }, 60000);
+
+    // Check if the timer has been running for more than 60 seconds.
+    if (Date.now() - currentTime > 60000) {
+      // If so, clear the timer and set a new one.
+      clearTimeout(newTimer);
+      newTimer = setTimeout(function() {
+        // Refresh the page.
+        window.location.reload();
+      }, 60000);
+    }
+
+    // Check to see if the user has been active recently.
+    if (Date.now() - currentTime < 60000) {
+      // If so, clear the timer.
+      clearTimeout(newTimer);
+    }
+  });
 }
 
-const refresh = () => {
-  window.location.reload(true);
-}
-
-resetTimer();
+// Call the detectUserActivity() function when the page loads.
+window.onload = detectUserActivity;
