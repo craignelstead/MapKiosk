@@ -1,94 +1,52 @@
-// This function detects user activity and sets a timer to refresh the page
-// after 60 seconds of inactivity.
-function detectUserActivity() {
-  // Get the current time.
-  let currentTime = new Date();
+/*
 
-  // Set a timer to refresh the page after 60 seconds.
-  let timer = setTimeout(function() {
-    // Refresh the page.
-    window.location.reload();
-  }, 60000);
+*/
 
-  // Listen for user activity.
-  window.addEventListener("mousemove", function() {
-    // Clear the timer so that the page does not refresh.
-    clearTimeout(timer);
+let activityTimeStamp = null;
+const refreshDelayTime = 120000; // 2 minutes
+const minRefreshDelayTime = refreshDelayTime;
+let refreshTimer = null;
 
-    // Get the current time.
-    let currentTime = new Date();
-
-    // Set a new timer to refresh the page after 60 seconds.
-    let newTimer = setTimeout(function() {
-      // Refresh the page.
-      window.location.reload();
-    }, 60000);
-
-    // Check if the timer has been running for more than 60 seconds.
-    if (Date.now() - currentTime > 60000) {
-      // If so, clear the timer and set a new one.
-      clearTimeout(newTimer);
-      newTimer = setTimeout(function() {
-        // Refresh the page.
-        window.location.reload();
-      }, 60000);
-    }
+function initialize() {
+  // Add event listeners here
+  document.addEventListener("mousemove", function(event) {
+    activityTimeStamp = Date.now();
+    resetRefreshTimer();
+    //alert("Mouse moved!");
   });
-
-  window.addEventListener("click", function() {
-    // Clear the timer so that the page does not refresh.
-    clearTimeout(timer);
-
-    // Get the current time.
-    let currentTime = new Date();
-
-    // Set a new timer to refresh the page after 60 seconds.
-    let newTimer = setTimeout(function() {
-      // Refresh the page.
-      window.location.reload();
-    }, 60000);
-
-    // Check if the timer has been running for more than 60 seconds.
-    if (Date.now() - currentTime > 60000) {
-      // If so, clear the timer and set a new one.
-      clearTimeout(newTimer);
-      newTimer = setTimeout(function() {
-        // Refresh the page.
-        window.location.reload();
-      }, 60000);
-    }
+  document.addEventListener("click", function(event) {
+    activityTimeStamp = Date.now();
+    resetRefreshTimer();
+    alert("Mouse clicked!");
   });
-
-  window.addEventListener("keydown", function() {
-    // Clear the timer so that the page does not refresh.
-    clearTimeout(timer);
-
-    // Get the current time.
-    let currentTime = new Date();
-
-    // Set a new timer to refresh the page after 60 seconds.
-    let newTimer = setTimeout(function() {
-      // Refresh the page.
-      window.location.reload();
-    }, 60000);
-
-    // Check if the timer has been running for more than 60 seconds.
-    if (Date.now() - currentTime > 60000) {
-      // If so, clear the timer and set a new one.
-      clearTimeout(newTimer);
-      newTimer = setTimeout(function() {
-        // Refresh the page.
-        window.location.reload();
-      }, 60000);
-    }
-
-    // Check to see if the user has been active recently.
-    if (Date.now() - currentTime < 60000) {
-      // If so, clear the timer.
-      clearTimeout(newTimer);
-    }
+  document.addEventListener("keydown", function(event) {
+    activityTimeStamp = Date.now();
+    resetRefreshTimer();
+    alert("Key pressed!");
   });
+  document.addEventListener("touchmove", function(event) {
+    activityTimeStamp = Date.now();
+    resetRefreshTimer();
+    //alert("Touch moved!");
+  });
+  
+  
+  // Set up the refresh timer
+  resetRefreshTimer();
 }
 
-// Call the detectUserActivity() function when the page loads.
-window.onload = detectUserActivity;
+function resetRefreshTimer() {
+  clearTimeout(refreshTimer);
+  if (activityTimeStamp !== null) {
+    const remainingTime = refreshDelayTime - (Date.now() - activityTimeStamp);
+    const delayTime = remainingTime < minRefreshDelayTime ? minRefreshDelayTime : remainingTime;
+    refreshTimer = setTimeout(function() {
+      location.reload();
+    }, delayTime);
+  }
+}
+
+window.onload = function() {
+  // Call the initialize function
+  initialize();
+};
