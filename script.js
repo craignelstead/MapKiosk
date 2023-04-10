@@ -1,6 +1,6 @@
 //This script should automatically reload the page if user was last active
 //X seconds ago. You can change the amount of time by editing the integer on 
-//line 42.
+//line 57.
 
 let count = 1;
 let interval;
@@ -11,8 +11,17 @@ window.addEventListener('load', () => {
   document.addEventListener('touchmove', startCount);
   document.addEventListener('keydown', startCount);
   document.addEventListener('mousemove', startCount);
-  document.addEventListener('click', startCount);
   document.addEventListener('touchstart', startCount);
+  document.addEventListener('touchend', startCount);
+  document.addEventListener('touchcancel', startCount);
+
+  let iframe = document.getElementById('mapFrame');
+  iframe.addEventListener('load', () => {
+    iframe.contentDocument.addEventListener('touchmove', startCount);
+  });
+
+  // Send message to iframe to start listening for touchmove events
+  iframe.contentWindow.postMessage({type: 'startListening'}, '*');
 });
 
 // If one of these event listeners is triggered, immediately start listening for
@@ -22,15 +31,21 @@ function startCount() {
   document.removeEventListener('touchmove', startCount);
   document.removeEventListener('keydown', startCount);
   document.removeEventListener('mousemove', startCount);
-  document.removeEventListener('click', startCount);
   document.removeEventListener('touchstart', startCount);
+  document.removeEventListener('touchend', startCount);
+  document.removeEventListener('touchcancel', startCount);
 
+  let iframe = document.getElementById('mapFrame');
   // Add event listeners back
   document.addEventListener('touchmove', startCount);
   document.addEventListener('keydown', startCount);
   document.addEventListener('mousemove', startCount);
-  document.addEventListener('click', startCount);
   document.addEventListener('touchstart', startCount);
+  document.addEventListener('touchend', startCount);
+  document.addEventListener('touchcancel', startCount);
+
+  // Send message to iframe to start listening for touchmove events again
+  iframe.contentWindow.postMessage({type: 'startListening'}, '*');
 
   // If the timer is not running, start it
   if (!interval) {
@@ -39,7 +54,7 @@ function startCount() {
 
       //If you need to change the reload time, edit the integer below.
       //The integer will determine the number of seconds before page reload.
-      if (count === 30) {
+      if (count === 180) {
         count = 1;
         clearInterval(interval);
         location.reload();
