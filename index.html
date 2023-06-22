@@ -12,17 +12,31 @@
 <body>
 
     <!--This page will mostly consist of an embedded iframe containing a concept3d
-    map, with a QR code overlay to provide access to mobile use-->
+    map-->
 
     <div>
-        <iframe src="https://map.concept3d.com/?id=1977#!w/40.5777,-105.08497,1;40.57738,-105.08436,1;1"
-        title="College of Business Map" id="mapFrame" 
-        scrolling="no" allow="geolocation">
+        <!--Public Version-->
+        <!--
+            <iframe src="https://map.concept3d.com/?id=1977#!w/40.5777,-105.08497,1;40.57738,-105.08436,1;1"
+            title="College of Business Map" id="mapFrame" 
+            scrolling="no" allow="geolocation">
         </iframe>
+        -->
 
+        <!--Preview Version-->
+            <iframe src="https://map.concept3d.com/?id=1977&preview=4MRgYOZC#!w/40.57769,-105.08509,0;40.57739,-105.08367,0;0"
+            title="College of Business Map" id="mapFrame" 
+            scrolling="no" allow="geolocation">
+            </iframe>
+
+        <!-- QR code - removed due to 'security'
         <div id="floatingQR">
             <h2>TAKE MAP TO GO</h2>
-            <img src="./images/concept3dQRcode.png">
+            <img src="./images/concept3dQRcode.png"> 
+        </div>
+        -->
+
+        <div id="bottombar">
         </div>
 
     </div>

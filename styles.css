@@ -33,6 +33,15 @@ body {
     justify-content: center;
 }
 
+#bottombar {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 40px;
+    background-color: RGB(30,77,43);
+    z-index: 99;
+}
+
 #floatingQR img {
     height: 200px;
 }

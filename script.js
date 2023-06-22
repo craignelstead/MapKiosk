@@ -1,99 +1,73 @@
 /*
-  This program was written by Craig Nelstead with some help from chatGPT
+  Written by Craig Nelstead - June 2023
 
-  This program should cause the page to reload after X amount of time has passed
-  since the last detected user activity. The amount of time to wait can be
-  adjusted my changing the value of the variable "reloadAfterX" on line 79.
-
-  This program works by giving the div "floatingQR" focus shortly after the page
-  loads. It then checks to see whether or not that div still has focus. If it 
-  does not, it is because a user is interacting with the map.
-
-  If user activity is detected (floatingQR loses focus), focus is restored to
-  the div after a short period. It then checks to see from there if it has lost 
-  focus again. This is to see if the user is still active or if they are still
-  interacting with the page content.
+  This program checks for user activity on the page so that it can automatically
+  refresh after a user has engaged with the page and then left it unattended.
 */
 
-const dummy = document.getElementById('floatingQR');
-let timer;
-let timerStarted = false;
-let secondTimer;
-let secondTimerStarted = false;
+// Get the dummy element by its ID
+let dummy = document.getElementById('bottombar');
 
-setTimeout(giveFocus, 10000);
+//Adjust this variable (refreshTime) to change how long after activity the page will refresh
+//(in milliseconds)
+let refreshTime = 120000;
 
-//This function gives the div "floatingQR" focus shortly after the page loads.
-function giveFocus() {
-  dummy.setAttribute('tabindex', '0');
-  dummy.focus();
-  setInterval(checkFocus, 1000);
-}
+// Give focus to dummy after 10 seconds
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    dummy.setAttribute('tabindex', '0');
+    dummy.focus();
+  }, 8000);
+});
 
-//This function checks for focus. If the div does not have focus, there has been
-//user activity and a timer begins.
+//Calls the checkFocus function every 15 seconds once the page loads
+let initialFocusCheck = setInterval(checkFocus, 15000);
+
+// Function to check if the bottom bar has lost focus
 function checkFocus() {
-  let isFocused = (document.activeElement === dummy);
+  //console.log(document.activeElement);
 
-  if (isFocused) {
-    console.log('Div has focus');
-    clearInterval(timer);
-    timerStarted = false;
-  } else {
-    console.log('Div does not have focus');
-
-    if (!timerStarted) {
-      startTimer();
-      timerStarted = true;
-    }
+  if (document.activeElement === dummy) {
+    //Dummy is still focused from its initial state, no user activity detected
+    console.log("No activity has been detected");
+  }
+  else {
+    //Dummy has lost focus, user activity has been detected
+    console.log("User activity has been detected");
+    clearInterval(initialFocusCheck);
+    returnFocus();
   }
 }
 
-//This timer waits and then returns the focus to the div.
-function startTimer() {
-  let count = 1;
-  timer = setInterval(() => {
-    console.log('First Timer:', count);
+//Function to give focus back to 'dummy' after initial user activity is detected
+function returnFocus() {
+  dummy.focus();
 
-    if (count === 10) {
-      clearInterval(timer);
-      console.log('Focus dummy and start the second timer');
-      dummy.setAttribute('tabindex', '0');
-      dummy.focus();
-      startSecondTimer();
-    }
-
-    count++;
-  }, 1000);
+  //callSecondCheck is called so that 
+  setTimeout(callSecondCheck, 10000)
 }
 
-function startSecondTimer() {
-  if (secondTimerStarted) {
-    clearInterval(secondTimer);
-    console.log('Restarting the second timer');
+function callSecondCheck() {
+  //Call function every X seconds to see if user is still active
+  let secondaryActivity = setInterval(checkIfSecondaryActivity, refreshTime);
+}
+
+//Function to see if user is still interacting with page
+function checkIfSecondaryActivity() {
+  if (document.activeElement === dummy) {
+    //Dummy is still focused, so the user is no longer interacting with the page
+    console.log("No secondary user activity detected");
+    refreshPage();
   }
+  else {
+    //Dummy has lost focus again, so the page will not refresh
+    console.log("Secondary user activity detected")
+    returnFocus();
+  }
+}
 
-  let count = 1;
-  //Adjust reloadAfterX to alter the amount of time (in seconds) after which
-  //the page should reload.
-  let reloadAfterX = 120;
-  secondTimer = setInterval(() => {
-    console.log('Second Timer:', count);
-
-    if (count === reloadAfterX) {
-      clearInterval(secondTimer);
-      console.log('PARTY! REFRESH!');
-      location.reload();
-    } else {
-      const isFocused = (document.activeElement === dummy);
-      if (!isFocused) {
-        console.log('Dummy does not have focus. Restarting the second timer.');
-        count = 0; // Reset the count to 0 to start from 1 in the next iteration
-      }
-    }
-
-    count++;
-  }, 1000);
-
-  secondTimerStarted = true;
+//Function that is called if no further user activity is called after initial
+//user activity is detected. This function will reload the page.
+function refreshPage() {
+  location.reload();
 }
