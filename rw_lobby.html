@@ -1,0 +1,183 @@
+<!--
+    This page contains the HTML, CSS, and Javascript for a map kiosk.
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="device-width">
+    <title>Map Kiosk</title>
+    <style>
+        html,
+        body,
+        div,
+        iframe {
+            margin: 0px;
+            padding: 0px;
+            height: 100%;
+        }
+
+        #mapFrame {
+            display: block;
+            height: 100vh;
+            width: 100vw;
+            border: none;
+            position: relative;
+        }
+
+        body {
+            background-color: RGB(30,77,43);
+        }
+
+        #floatingQR {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            border-style: solid;
+            border-color: RGB(30,77,43);
+            height:fit-content;
+            border-top-left-radius: 2%;
+            background-color: RGB(30,77,43);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        #bottombar {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 40px;
+            background-color: RGB(30,77,43);
+            z-index: 99;
+        }
+
+        #floatingQR img {
+            height: 200px;
+        }
+
+        h2 {
+            font-size: 10;
+            color: RGB(200, 195, 114);
+            text-align:center;
+            font-family:Arial, Helvetica, sans-serif;
+            margin: 0;
+            background-color: RGB(30,77,43);
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <!--This page will mostly consist of an embedded iframe containing a concept3d
+    map-->
+
+    <div>
+        <!--Public Version-->
+        <!--
+            <iframe src="https://map.concept3d.com/?id=1977#!w/40.5777,-105.08497,1;40.57738,-105.08436,1;1"
+            title="College of Business Map" id="mapFrame" 
+            scrolling="no" allow="geolocation">
+        </iframe>
+        -->
+
+        <!--Preview Version-->
+            <iframe src="https://map.concept3d.com/?id=1977&preview=4MRgYOZC#!w/40.57769,-105.08509,0;40.57739,-105.08367,0;0"
+            title="College of Business Map" id="mapFrame" 
+            scrolling="no" allow="geolocation">
+            </iframe>
+
+        <!-- QR code - removed due to 'security'
+        <div id="floatingQR">
+            <h2>TAKE MAP TO GO</h2>
+            <img src="./images/concept3dQRcode.png"> 
+        </div>
+        -->
+
+        <div id="bottombar">
+        </div>
+
+    </div>
+
+    <script>
+        /*
+        Written by Craig Nelstead - June 2023
+
+        This program checks for user activity on the page so that it can automatically
+        refresh after a user has engaged with the page and then left it unattended.
+        */
+
+        // Get the dummy element by its ID
+        let dummy = document.getElementById('bottombar');
+
+        //Adjust this variable (refreshTime) to change how long after activity the page will refresh
+        //(in milliseconds)
+        let refreshTime = 120000;
+
+        // Give focus to dummy after 10 seconds
+        window.addEventListener('load', () => {
+        setTimeout(() => {
+            dummy.setAttribute('tabindex', '0');
+            dummy.focus();
+        }, 8000);
+        });
+
+        //Calls the checkFocus function every 15 seconds once the page loads
+        let initialFocusCheck = setInterval(checkFocus, 15000);
+
+        // Function to check if the bottom bar has lost focus
+        function checkFocus() {
+        //console.log(document.activeElement);
+
+        if (document.activeElement === dummy) {
+            //Dummy is still focused from its initial state, no user activity detected
+            console.log("No activity has been detected");
+        }
+        else {
+            //Dummy has lost focus, user activity has been detected
+            console.log("User activity has been detected");
+            clearInterval(initialFocusCheck);
+            returnFocus();
+        }
+        }
+
+        //Function to give focus back to 'dummy' after initial user activity is detected
+        function returnFocus() {
+        dummy.focus();
+
+        //callSecondCheck is called so that 
+        setTimeout(callSecondCheck, 10000)
+        }
+
+        function callSecondCheck() {
+        //Call function every X seconds to see if user is still active
+        let secondaryActivity = setInterval(checkIfSecondaryActivity, refreshTime);
+        }
+
+        //Function to see if user is still interacting with page
+        function checkIfSecondaryActivity() {
+        if (document.activeElement === dummy) {
+            //Dummy is still focused, so the user is no longer interacting with the page
+            console.log("No secondary user activity detected");
+            refreshPage();
+        }
+        else {
+            //Dummy has lost focus again, so the page will not refresh
+            console.log("Secondary user activity detected")
+            returnFocus();
+        }
+        }
+
+        //Function that is called if no further user activity is called after initial
+        //user activity is detected. This function will reload the page.
+        function refreshPage() {
+        location.reload();
+        }
+    </script>
+
+</body>
+
+</html>
