@@ -11,6 +11,19 @@ body {
     margin: 0;
 }
 
+#topbar {
+    top: 0;
+    position: fixed;
+    background-color: RGB(30,77,43);
+    z-index: 98;
+    height: 40px;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
 #mapFrame {
     height: 100vh;
     width: 100vw;
@@ -30,10 +43,27 @@ body {
     align-items: center;
 }
 
-
-
 #navbuttons {
+    width: 800px;
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+}
 
+#roomCat, #roomID {
+    font-size: 18px;
+}
+
+#roomCat {
+    width: 190px;
+}
+
+#roomID {
+    width: 310px;
+}
+
+#btnDirections {
+    font-size: 18px;
 }
 
 h2 {

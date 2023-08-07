@@ -8,14 +8,27 @@
 </head>
 <body>
     <div id="container">
-        <iframe id="mapFrame" src="https://map.concept3d.com/?id=1977#!ct/0?s/?d/type:walking;ada:false;from:40.577721,-105.084969,1;to:40.577854,-105.084892,1;startName:RW%20Lobby%20Map%20Kiosk;endName:RW-101;?lvl/1"></iframe>
+        <div id="topbar">
+            <h2>Welcome to the College of Business. You are in Rockwell Hall West.</h2>
+        </div>
+        <iframe id="mapFrame" src="https://tinyurl.com/RWdefault"></iframe>
         <div id="bottombar">
             <div id="navbuttons">
-                <select name="All Rooms" id="roomCat"></select>
-                <select name="Room" id="roomNum"></select>
+                <select name="All Rooms" id="roomCat">
+                    <option value="Classrooms">Classrooms</option>
+                    <option value="Conference Rooms">Conference Rooms</option>
+                    <option value="Study Rooms">Study Rooms</option>
+                    <option value="Academic Programs">Academic Programs</option>
+                    <option value="Student Resources">Student Resources</option>
+                    <option value="Operations">Operations</option>
+                    <option value="All Rooms">All Rooms</option>
+                </select>
+                <select name="Room" id="roomID"></select>
                 <button id="btnDirections">Show Directions</button>
             </div>
         </div>
     </div>
+    <script src=".\changemenu.js" delay></script>
+    
 </body>
 </html>

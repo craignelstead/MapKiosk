@@ -15,23 +15,22 @@
   interacting with the page content.
 */
 
-const dummy = document.getElementById('floatingQR');
+const dummy = document.getElementById('bottombar');
 let timer;
 let timerStarted = false;
 let secondTimer;
 let secondTimerStarted = false;
+let firstTimerCompleted = false;
+let secondTimerActive = false;
 
 setTimeout(giveFocus, 10000);
 
-//This function gives the div "floatingQR" focus shortly after the page loads.
 function giveFocus() {
   dummy.setAttribute('tabindex', '0');
   dummy.focus();
   setInterval(checkFocus, 1000);
 }
 
-//This function checks for focus. If the div does not have focus, there has been
-//user activity and a timer begins.
 function checkFocus() {
   let isFocused = (document.activeElement === dummy);
 
@@ -39,6 +38,10 @@ function checkFocus() {
     console.log('Div has focus');
     clearInterval(timer);
     timerStarted = false;
+    firstTimerCompleted = true;
+    if (secondTimerStarted && !secondTimerActive) {
+      startSecondTimer();
+    }
   } else {
     console.log('Div does not have focus');
 
@@ -49,7 +52,6 @@ function checkFocus() {
   }
 }
 
-//This timer waits and then returns the focus to the div.
 function startTimer() {
   let count = 1;
   timer = setInterval(() => {
@@ -74,8 +76,6 @@ function startSecondTimer() {
   }
 
   let count = 1;
-  //Adjust reloadAfterX to alter the amount of time (in seconds) after which
-  //the page should reload.
   let reloadAfterX = 120;
   secondTimer = setInterval(() => {
     console.log('Second Timer:', count);
@@ -87,8 +87,15 @@ function startSecondTimer() {
     } else {
       const isFocused = (document.activeElement === dummy);
       if (!isFocused) {
-        console.log('Dummy does not have focus. Restarting the second timer.');
-        count = 0; // Reset the count to 0 to start from 1 in the next iteration
+        if (firstTimerCompleted) {
+          console.log('Dummy does not have focus. Restarting the second timer.');
+          clearInterval(secondTimer);
+          startSecondTimer();
+        } else {
+          console.log('Dummy does not have focus, but the first timer is not yet completed.');
+        }
+      } else if (isFocused && firstTimerCompleted) {
+        secondTimerActive = true;
       }
     }
 
