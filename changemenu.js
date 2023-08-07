@@ -68,7 +68,8 @@ function updateRoomList() {
 function catClassrooms() {
     let roomList = ['RH-036','RH-038','RH-039',
                     'RH-139','RH-165','RH-167','RH-170','RH-172',
-                    'RW-101','RW-103','RW-105','RW-107','RW-116','RW-118',
+                    'RW-101','RW-103','RW-105','RW-107',
+                    'RW-116-Bohemian-Auditorium','RW-118-Mosaic-Classroom',
                     'RW-207','RW-209','RW-213','RW-222'];
 
     populateOptions(roomList);
@@ -76,26 +77,26 @@ function catClassrooms() {
 
 function catConferenceRooms() {
     let roomList = ['RH-119','RH-133','RW-208','RW-211',
-                    'RW-220 Global Leadership Council'];
+                    'RW-220-Global-Leadership-Council'];
 
     populateOptions(roomList);
 }
 
 function catStudyRooms() {
-    let roomList = ['RH-037 Computer Lab','RH-037A','RH-037B','RH-037C',
-                    'RW-004 Sonny Lubick Lounge','RW-101A',
-                    'RW-200 Student Forum','RW-203 Study Room',
-                    'RW-205 Study Room','RW Lobby'];
+    let roomList = ['RH-037-Computer-Lab','RH-037A','RH-037B','RH-037C',
+                    'RW-004-Sonny-Lubick-Lounge','RW-101A',
+                    'RW-200-Student-Forum','RW-203-Study-Room',
+                    'RW-205-Study-Room','RW-Lobby'];
 
     populateOptions(roomList);
 }
 
 function catAcademicPrograms() {
-    let roomList = ['Accounting Office','Computer Information Systems Office',
-                    'Finance & Real Estate Office','Management Office',
-                    'Marketing Office','Music Business Program',
-                    'Graduate Advising','Undergraduate Advising',
-                    'Graduate Program Office'];
+    let roomList = ['Accounting-Office','Computer-Information-Systems-Office',
+                    'Finance-and-Real-Estate-Office','Management-Office',
+                    'Marketing-Office','Music-Business-Program',
+                    'Graduate-Advising','Undergraduate-Advising',
+                    'Graduate-Program-Office'];
 
     populateOptions(roomList);
 }
@@ -108,12 +109,13 @@ function catStudentResources() {
 }
 
 function catOperations() {
-    let roomList = ['Dean\'s Office','Development','Human Resources',
-                    'Marketing and Communications'];
+    let roomList = ['Dean\'s-Office','Development','Human-Resources',
+                    'Marketing-and-Communications'];
 
     populateOptions(roomList);
 }
 
+//Go through array and add each room to the roomID dropdown
 function populateOptions(catList) {
     for (let i = 0; i < catList.length; i++) {
         let newRoom = document.createElement('option');
@@ -129,6 +131,7 @@ function clearRoomList() {
     }
 }
 
+//Change the iframe source to match the roomID selection
 function updateMap() {
     let newVal = roomID.value.toString();
 
