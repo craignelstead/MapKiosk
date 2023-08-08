@@ -36,14 +36,14 @@ function updateRoomList() {
 
     //Category lists to add
     switch (roomCat.value) {
-        case 'All Rooms':
-            catClassrooms();
-            catConferenceRooms();
-            catStudyRooms();
-            catAcademicPrograms();
-            catStudentResources();
-            catOperations();
-            break;
+        // case 'All Rooms':
+        //     catClassrooms();
+        //     catConferenceRooms();
+        //     catStudyRooms();
+        //     catAcademicPrograms();
+        //     catStudentResources();
+        //     catOperations();
+        //     break;
         case 'Classrooms':
             catClassrooms();
             break;
@@ -56,12 +56,12 @@ function updateRoomList() {
         case 'Academic Programs':
             catAcademicPrograms();
             break;
-        case 'Student Resources':
-            catStudentResources();
-            break;
-        case 'Operations':
-            catOperations();
-            break;
+        // case 'Student Resources':
+        //     catStudentResources();
+        //     break;
+        // case 'Operations':
+        //     catOperations();
+        //     break;
     }
 }
 
@@ -131,7 +131,7 @@ function clearRoomList() {
     }
 }
 
-//Change the iframe source to match the roomID selection
+//Change the iframe source to match the roomID selections
 function updateMap() {
     let newVal = roomID.value.toString();
 
