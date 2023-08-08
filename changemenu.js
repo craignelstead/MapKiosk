@@ -1,5 +1,10 @@
 /*
     Created by Craig Nelstead 2023
+
+    This program is designed to work based on a match between the room name
+    and the end of a custom URL hosted by tinyurl. Any discrepancy between
+    the room name in the array of rooms and the URL will result in a broken
+    link.
 */
 
 //Global variables:
@@ -92,8 +97,8 @@ function catStudyRooms() {
 }
 
 function catAcademicPrograms() {
-    let roomList = ['Accounting-Office','Computer-Information-Systems-Office',
-                    'Finance-and-Real-Estate-Office','Management-Office',
+    let roomList = ['Accounting-Office','CIS-Office',
+                    'Finance-and-Real-Estate','Management-Office',
                     'Marketing-Office','Music-Business-Program',
                     'Graduate-Advising','Undergraduate-Advising',
                     'Graduate-Program-Office'];
@@ -136,4 +141,7 @@ function updateMap() {
     let newVal = roomID.value.toString();
 
     iframe.src = 'https://tinyurl.com/RWto' + newVal;
+
+    //This line is here as a test to fix rooms that are not loading
+    iframe.src += '';
 }
