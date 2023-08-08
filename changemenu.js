@@ -136,6 +136,4 @@ function updateMap() {
     let newVal = roomID.value.toString();
 
     iframe.src = 'https://tinyurl.com/RWto' + newVal;
-
-    alert(iframe.src);
 }
