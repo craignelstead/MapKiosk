@@ -82,7 +82,7 @@ function catClassrooms() {
 
 function catConferenceRooms() {
     let roomList = ['RH-119','RH-133','RW-208','RW-211',
-                    'RW-220-Global-Leadership-Council'];
+                    'RW-220-GLC'];
 
     populateOptions(roomList);
 }
