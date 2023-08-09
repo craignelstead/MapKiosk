@@ -11,8 +11,9 @@
 let roomCat = document.getElementById('roomCat');
 let roomID = document.getElementById('roomID');
 let iframe = document.getElementById('mapFrame');
+let adaCheckBox = document.getElementById('adaCheck');
 
-listenToBtn();
+listenToRoom();
 listenToCat();
 
 defaultPopulate();
@@ -23,10 +24,11 @@ function defaultPopulate() {
     catClassrooms();
 }
 
-//Assigns listener to map button
-function listenToBtn() {
-    let btn = document.getElementById('btnDirections');
-    btn.addEventListener('click', updateMap);
+//Assigns listener to changing map name
+function listenToRoom() {
+    let room = document.getElementById('roomID');
+    room.addEventListener('change', updateMap);
+    adaCheckBox.addEventListener('change',updateMap);
 }
 
 //Assigns listener to category list
@@ -71,50 +73,50 @@ function updateRoomList() {
 }
 
 function catClassrooms() {
-    let roomList = ['RH-036','RH-038','RH-039',
-                    'RH-139','RH-165','RH-167','RH-170','RH-172',
-                    'RW-101','RW-103','RW-105','RW-107',
-                    'RW-116-Bohemian-Auditorium','RW-118-Mosaic-Classroom',
-                    'RW-207','RW-209','RW-213','RW-222'];
+    let roomList = ['','RH 036','RH 038','RH 039',
+                    'RH 139','RH 165','RH 167','RH 170','RH 172',
+                    'RW 101','RW 103','RW 105','RW 107',
+                    'RW 116 Bohemian Auditorium','RW 118 Mosaic Classroom',
+                    'RW 207','RW 209','RW 213','RW 222'];
 
     populateOptions(roomList);
 }
 
 function catConferenceRooms() {
-    let roomList = ['RH-119','RH-133','RW-208','RW-211',
-                    'RW-220-GLC'];
+    let roomList = ['','RH 119','RH 133','RW 208','RW 211',
+                    'RW 220 GLC'];
 
     populateOptions(roomList);
 }
 
 function catStudyRooms() {
-    let roomList = ['RH-037-Computer-Lab','RH-037A','RH-037B','RH-037C',
-                    'RW-004-Sonny-Lubick-Lounge','RW-101A',
-                    'RW-200-Student-Forum','RW-203-Study-Room',
-                    'RW-205-Study-Room','RW-Lobby'];
+    let roomList = ['','RH 037 Computer Lab','RH 037A','RH 037B','RH 037C',
+                    'RW 004 Sonny Lubick Lounge','RW 101A',
+                    'RW 200 Student Forum','RW 203 Study Room',
+                    'RW 205 Study Room','RW Lobby'];
 
     populateOptions(roomList);
 }
 
 function catAcademicPrograms() {
-    let roomList = ['Accounting-Office','CIS-Office',
-                    'Finance-and-Real-Estate','Management-Office',
-                    'Marketing-Office','Music-Business-Program',
-                    'Graduate-Advising','Undergraduate-Advising',
-                    'Graduate-Program-Office'];
+    let roomList = ['','Accounting Office','CIS Office',
+                    'Finance and Real Estate','Management Office',
+                    'Marketing Office','Music Business Program',
+                    'Graduate Advising','Undergraduate Advising',
+                    'Graduate Program Office'];
 
     populateOptions(roomList);
 }
 
 function catStudentResources() {
-    let roomList = ['IT Help Desk','Accounting Tutoring Lab',
+    let roomList = ['','IT Help Desk','Accounting Tutoring Lab',
                     'The Bean Counter - Coffee Shop','Career Management Center'];
 
     populateOptions(roomList);
 }
 
 function catOperations() {
-    let roomList = ['Dean\'s-Office','Development','Human-Resources',
+    let roomList = ['','Dean\'s-Office','Development','Human-Resources',
                     'Marketing-and-Communications'];
 
     populateOptions(roomList);
@@ -139,12 +141,20 @@ function clearRoomList() {
 //Change the iframe source to match the roomID selections
 function updateMap() {
 
-    //Add call to function that replaces spaces with hyphens
-
     let newVal = roomID.value.toString();
 
-    iframe.src = 'https://tinyurl.com/RWto' + newVal;
+    //Replace spaces with hyphens for URL match
+    newVal = newVal.replaceAll(' ','-');
 
-    //This line is here as a test to fix rooms that are not loading
-    iframe.src += '';
+    if (newVal === '') {
+        return;
+    }
+
+    //Change the iframe source. If ADA box is checked, add 'a' to URL.
+    if (adaCheckBox.checked == false) {
+        iframe.src = 'https://tinyurl.com/RWto' + newVal;
+    }
+    else {
+        iframe.src = 'https://tinyurl.com/RWto' + newVal + 'a';
+    }
 }
