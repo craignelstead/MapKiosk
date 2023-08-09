@@ -24,9 +24,9 @@ body {
 }
 
 #mapFrame {
-    position:absolute; left:-25%;
+    position:absolute; left:-24.5%;
     height: 100%;
-    width: 125%;
+    width: 124.5%;
     overflow: hidden;
     border: none;
 }
