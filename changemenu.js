@@ -29,11 +29,20 @@ function listenToRoom() {
     let room = document.getElementById('roomID');
     room.addEventListener('change', updateMap);
     adaCheckBox.addEventListener('change',updateMap);
+
+    //Add listener to ADA button
+    let imgIcon = document.getElementById('adaIcon');
+    imgIcon.addEventListener('click', imgToggle);
 }
 
 //Assigns listener to category list
 function listenToCat() {
     roomCat.addEventListener('change', updateRoomList);
+}
+
+//Toggles the 
+function imgToggle() {
+    adaCheckBox.checked = !adaCheckBox.checked;
 }
 
 //Clears room list then repopulates it based off the room category selected
@@ -159,7 +168,6 @@ function updateMap() {
         //RW 116 name too long for URL shortener
         if (newVal === 'RW-116-Bohemian-Auditorium') {
             iframe.src = 'https://tinyurl.com/RWtoRW-116z';
-            
         }
         //RW 004 name too long
         else if (newVal === 'RW-004-Sonny-Lubick-Lounge') {
