@@ -146,15 +146,31 @@ function updateMap() {
     //Replace spaces with hyphens for URL match
     newVal = newVal.replaceAll(' ','-');
 
+    //Don't refresh iframe when new category is loaded
     if (newVal === '') {
         return;
     }
 
-    //Change the iframe source. If ADA box is checked, add 'a' to URL.
+    //Change the iframe source. If ADA box is checked, add 'z' to URL.
     if (adaCheckBox.checked == false) {
         iframe.src = 'https://tinyurl.com/RWto' + newVal;
     }
     else {
-        iframe.src = 'https://tinyurl.com/RWto' + newVal + 'a';
+        //RW 116 name too long for URL shortener
+        if (newVal === 'RW-116-Bohemian-Auditorium') {
+            iframe.src = 'https://tinyurl.com/RWtoRW-116z';
+            
+        }
+        //RW 004 name too long
+        else if (newVal === 'RW-004-Sonny-Lubick-Lounge') {
+            iframe.src = 'https://tinyurl.com/RWtoRW-004z';
+        }
+        //RW Finance name too long
+        else if (newVal === 'Finance-and-Real-Estate') {
+            iframe.src = 'https://tinyurl.com/RWtoFinancez';
+        }
+        else {
+            iframe.src = 'https://tinyurl.com/RWto' + newVal + 'z';
+        }
     }
 }
