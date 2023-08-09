@@ -43,6 +43,7 @@ function listenToCat() {
 //Toggles the 
 function imgToggle() {
     adaCheckBox.checked = !adaCheckBox.checked;
+    updateMap();
 }
 
 //Clears room list then repopulates it based off the room category selected
