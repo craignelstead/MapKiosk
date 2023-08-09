@@ -138,6 +138,9 @@ function clearRoomList() {
 
 //Change the iframe source to match the roomID selections
 function updateMap() {
+
+    //Add call to function that replaces spaces with hyphens
+
     let newVal = roomID.value.toString();
 
     iframe.src = 'https://tinyurl.com/RWto' + newVal;

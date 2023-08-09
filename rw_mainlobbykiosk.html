@@ -11,7 +11,7 @@
         <div id="topbar">
             <h2>Welcome to the College of Business. You are in Rockwell Hall West.</h2>
         </div>
-        <iframe id="mapFrame" src="https://tinyurl.com/RWdefault"></iframe>
+        <iframe id="mapFrame" scrolling="no" src="https://tinyurl.com/RWdefault"></iframe>
         <div id="bottombar">
             <div id="navbuttons">
                 <select name="All Rooms" id="roomCat">
@@ -27,11 +27,14 @@
                 </select>
                 <select name="Room" id="roomID"></select>
                 <button id="btnDirections">Show Directions</button>
+                <div id="adaBox">
+                    <input type="checkbox" id="adaCheck">
+                    <img id="adaIcon" src=".\images\ada.svg.png">
+                </div>
             </div>
             <p id="instructions">To get directions, select a room and press "Show Directions",
                 or click and drag marker "B" on the map.
             </p>
-            <p>For ADA-accessible routes, select "Show only accessible routes" on the left side menu.</p>
         </div>
     </div>
     <script src=".\changemenu.js" delay></script>

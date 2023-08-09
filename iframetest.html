@@ -5,105 +5,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="device-width">
     <title>Map Kiosk</title>
-    <link rel="stylesheet" href="./styles.css">
-    <link rel="stylesheet" href="./teststyles.css">
+    
+    <style>
+      #mapFrame {
+        position:absolute; left:-25%;
+        height: 100%;
+        width: 125%;
+        overflow: hidden;
+      }
+    </style>
 
 </head>
 
 <body>
 
-    <!--This page will mostly consist of an embedded iframe containing a concept3d
-    map, with a QR code overlay to provide access to mobile use-->
-
-    <div>
-        <iframe src="https://map.concept3d.com/?id=1977#!w/40.5777,-105.08497,1;40.57738,-105.08436,1;1"
-        title="College of Business Map" id="mapFrame" 
-        scrolling="no" allow="geolocation">
-            <script src="./script.js"></script>
-        </iframe>
-
-        <div id="floatingQR">
-            <h2>TAKE MAP TO GO</h2>
-            <img src="./images/concept3dQRcode.png">
-        </div>
-    </div>
-
-      <div class="line horizontal"></div>
-      <div class="line horizontal"></div>
-      <div class="line horizontal"></div>
-      <div class="line horizontal"></div>
-      <div class="line horizontal"></div>
-      <div class="line horizontal"></div>
-      <div class="line horizontal"></div>
-      <div class="line horizontal"></div>
-      <div class="line horizontal"></div>
-      <div class="line horizontal"></div>
-      <div class="line horizontal"></div>
-      <div class="line horizontal"></div>
-    
-
-    <script>
-//This script should automatically reload the page if user was last active
-//X seconds ago. You can change the amount of time by editing the integer on 
-//line 42.
-
-let count = 1;
-let interval;
-
-// When the page is done loading, have event listeners for any kind of user activity
-window.addEventListener('load', () => {
-  // Add event listeners for touchmove, keydown, mousemove, click, and touchstart
-  document.addEventListener('touchmove', startCount);
-  document.addEventListener('keydown', startCount);
-  document.addEventListener('mousemove', startCount);
-  //document.addEventListener('click', startCount);
-  document.addEventListener('touchstart', startCount);
-  document.addEventListener('touchend', startCount);
-  document.addEventListener('touchcancel', startCount);
-});
-
-// If one of these event listeners is triggered, immediately start listening for
-// new activity again. So there should always be event listeners actively listening.
-function startCount() {
-  // Remove all event listeners
-  document.removeEventListener('touchmove', startCount);
-  document.removeEventListener('keydown', startCount);
-  document.removeEventListener('mousemove', startCount);
-  //document.removeEventListener('click', startCount);
-  document.removeEventListener('touchstart', startCount);
-  document.removeEventListener('touchend', startCount);
-  document.removeEventListener('touchcancel', startCount);
-
-  // Add event listeners back
-  document.addEventListener('touchmove', startCount);
-  document.addEventListener('keydown', startCount);
-  document.addEventListener('mousemove', startCount);
-  //document.addEventListener('click', startCount);
-  document.addEventListener('touchstart', startCount);
-  document.addEventListener('touchend', startCount);
-  document.addEventListener('touchcancel', startCount);
-
-  // If the timer is not running, start it
-  if (!interval) {
-    interval = setInterval(() => {
-      console.log(count);
-
-      //If you need to change the reload time, edit the integer below.
-      //The integer will determine the number of seconds before page reload.
-      if (count === 30) {
-        count = 1;
-        clearInterval(interval);
-        location.reload();
-      }
-      count++;
-    }, 1000);
-  } else {
-    count = 1; // reset count to 1
-  }
-}
-
-
-    </script>
+<iframe id="mapFrame" scrolling="no" src="https://tinyurl.com/RWdefault"></iframe>
 
 </body>
 
