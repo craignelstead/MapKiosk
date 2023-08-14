@@ -12,7 +12,8 @@ let roomCat = document.getElementById('roomCat');
 let roomID = document.getElementById('roomID');
 let iframe = document.getElementById('mapFrame');
 let adaCheckBox = document.getElementById('adaCheck');
-let buildingName = 'Rockwell Hall West';
+//EDIT THIS VARIABLE FOR DIFFERENT KIOSK LOCATION:
+let buildingName = 'Rockwell Hall West.';
 
 listenToRoom();
 listenToCat();
