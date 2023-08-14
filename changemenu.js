@@ -12,16 +12,23 @@ let roomCat = document.getElementById('roomCat');
 let roomID = document.getElementById('roomID');
 let iframe = document.getElementById('mapFrame');
 let adaCheckBox = document.getElementById('adaCheck');
+let buildingName = 'Rockwell Hall West';
 
 listenToRoom();
 listenToCat();
-
+youAreHere();
 defaultPopulate();
 
 //Default list of rooms is classrooms
 function defaultPopulate() {
     clearRoomList();
     catClassrooms();
+}
+
+//Show current building name
+function youAreHere() {
+    let kioskLocation = document.getElementById('buildingLocation');
+    kioskLocation.textContent += buildingName;
 }
 
 //Assigns listener to changing map name
@@ -156,8 +163,13 @@ function updateMap() {
     //Replace spaces with hyphens for URL match
     newVal = newVal.replaceAll(' ','-');
 
+    //If no room has been selected but ADA has been checked
+    if (newVal === '' && iframe.src === 'https://tinyurl.com/RWdefault') {
+        iframe.src = 'https://tinyurl.com/RWdefaultz';
+        return;
+    }
     //Don't refresh iframe when new category is loaded
-    if (newVal === '') {
+    else if (newVal === '') {
         return;
     }
 
