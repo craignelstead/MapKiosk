@@ -66,18 +66,18 @@ body {
 
 h2 {
     font-size: 10;
-    color: RGB(200, 195, 114);
+    color: white;
     text-align:center;
-    font-family:Arial, Helvetica, sans-serif;
+    font-family: 'factoria-book', sans-serif;
     margin: 0;
     background-color: RGB(30,77,43);
 }
 
 p {
     font-size: 22px;
-    color: RGB(200, 195, 114);
+    color: white;
     margin: 5px;
-    font-family:Arial, Helvetica, sans-serif;
+    font-family: 'prox-regular', sans-serif;
 }
 
 #adaCheck {
@@ -100,4 +100,4 @@ p {
 :root {
     touch-action: pan-x pan-y;
     height: 100% 
-  }
+}
