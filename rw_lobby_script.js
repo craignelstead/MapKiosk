@@ -120,8 +120,7 @@ function catAcademicPrograms() {
     let roomList = ['','Accounting Office','CIS Office',
                     'Finance and Real Estate','Management Office',
                     'Marketing Office','Music Business Program',
-                    'Graduate Advising','Undergraduate Advising',
-                    'Graduate Program Office'];
+                    'Graduate Advising','Undergraduate Advising'];
 
     populateOptions(roomList);
 }
