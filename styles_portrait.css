@@ -23,7 +23,7 @@ body {
     align-items: center;
 }
 
-/* Portrait
+/*Portrait*/
 #mapFrame {
     position:absolute; left:-43.5%;
     height: 100%;
@@ -31,9 +31,8 @@ body {
     overflow: hidden;
     border: none;
 }
-*/
 
-/*Landscape*/
+/*Landscape
 #mapFrame {
     position:absolute; left:-24.5%;
     height: 100%;
@@ -41,6 +40,7 @@ body {
     overflow: hidden;
     border: none;
 }
+*/
 
 #bottombar {
     bottom: 0;

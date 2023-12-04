@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--IMPORTANT: Screen resolution must be set to 100% for page to load properly-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Rockwell Hall South Lobby Kiosk</title>
+    <link rel="stylesheet" href=".\styles_portrait.css">
+</head>
+<body>
+    <div id="container">
+        <div id="topbar">
+            <h2 id="buildingLocation">Welcome to the College of Business! You are in </h2>
+        </div>
+        <iframe id="mapFrame" scrolling="no" src="https://tinyurl.com/RHSdefault"></iframe>
+        <div id="bottombar">
+            <div id="navbuttons">
+                <select name="All Rooms" id="roomCat">
+                    <option value="Classrooms">Classrooms</option>
+                    <option value="Conference Rooms">Conference Rooms</option>
+                    <option value="Study Rooms">Study Rooms</option>
+                    <option value="Academic Programs">Academic Programs</option>
+                    <!--
+                    <option value="Student Resources">Student Resources</option>
+                    <option value="Operations">Operations</option>
+                    <option value="All Rooms">All Rooms</option>
+                    -->
+                </select>
+                <select name="Room" id="roomID"></select>
+                <div id="adaBox">
+                    <input type="checkbox" id="adaCheck">
+                    <img id="adaIcon" src="./images/ada.svg.png">
+                </div>
+            </div>
+            <p id="instructions">To get directions, select a room from the menu
+                or select and drag marker "B" on the map.
+            </p>
+        </div>
+    </div>
+    <script src="./rw118.js" delay></script>
+    
+</body>
+</html>
