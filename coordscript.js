@@ -8,7 +8,49 @@ const GUI = (function(doc) {
     const roomId = doc.getElementById('roomID');
     const iframe = doc.getElementById('mapFrame');
     const adaCheckBox = doc.getElementById('adaCheck');
-    const buildingName = doc.getElementById('Rockwell West');
+    const imgIcon = doc.getElementById('adaIcon');
+    const buildingName = doc.getElementById('buildingLocation');
+
+    //Gets kiosk location from buildingName's data-location property in HTML
+    function getKioskLocation() {
+        return buildingName.dataset.location;
+    }
+
+    //Get location and update header with building name
+    function updateWelcomeMsg() {
+        //buildingName.textContent += KIOSKLOCATION.building;
+    }
+
+    //Assigns listener to changing room name
+    function listenToRoom() {
+        roomId.addEventListener('change', changeFrame.update);
+        adaCheckBox.addEventListener('change', changeFrame.update);
+        imgIcon.addEventListener('change', imgToggle);
+    }
+
+    //Assigns listener to category list
+    function listenToCat() {
+        roomCat.addEventListener('change', updateRoomList);
+    }
+
+    //Toggles ADA check when icon is pressed
+    function imgToggle() {
+        adaCheckBox.checked = !adaCheckBox.checked;
+        changeFrame.update();
+    }
+
+    //Clears room list then repopulates it based off the room category selected
+    function updateRoomList() {
+
+    }
+
+    //Filter room array to see 
+    function updateCurrentRoom() {
+        
+    }
+
+    listenToRoom();
+    listenToCat();
 
     return {
         roomCat,
@@ -20,17 +62,19 @@ const GUI = (function(doc) {
 });
 
 //Location creator
-const Location = (place, cat, coord, lvl) => {
+const Location = (place, cat, coord, lvl, bld) => {
     let name = place;
     let category = cat;
     let coordinates = coord;
     let level = lvl;
+    let building = bld;
 
     return {
         name,
         category,
         coordinates,
         level,
+        building,
     }
 }
 
@@ -45,7 +89,7 @@ const roomValues = (function() {
         arr.push(Location(loc, cat, coord, lvl));
     }
 
-    //(Array, 'Name', 'Category', 'Coordinates', 'Level')
+    //(Array, 'Name', 'Category', 'Coordinates', 'Level', *optional*'Building name')
 
     //ROOM LOCATIONS
     //Classrooms
@@ -100,25 +144,25 @@ const roomValues = (function() {
 
     //KIOSK LOCATIONS
     //RW lobby first floor
-    addToArray(kioskList, 'RW-lobby', 'Kiosks', '40.577713,-105.084938', '1');
+    addToArray(kioskList, 'RW-lobby', 'Kiosks', '40.577713,-105.084938', '1', 'Rockwell West');
     //RW hallway outside UGA
-    addToArray(kioskList, 'RW-1-hallway-central', 'Kiosks', '40.577751994753356,-105.08525043726098', '1');
+    addToArray(kioskList, 'RW-1-hallway-central', 'Kiosks', '40.577751994753356,-105.08525043726098', '1', 'Rockwell West');
     //RW hallway outside 107
-    addToArray(kioskList, 'RW-1-hallway-107', 'Kiosks', '40.57776523656537,-105.08538722992172', '1');
+    addToArray(kioskList, 'RW-1-hallway-107', 'Kiosks', '40.57776523656537,-105.08538722992172', '1', 'Rockwell West');
     //RW hallway between 116 & 118
-    addToArray(kioskList, 'RW-1-hallway-west', 'Kiosks', '40.577768292367665,-105.08558370173003', '1');
+    addToArray(kioskList, 'RW-1-hallway-west', 'Kiosks', '40.577768292367665,-105.08558370173003', '1', 'Rockwell West');
     //RW 2nd floor above lobby
-    addToArray(kioskList, 'RW-2-lobby', 'Kiosks', '40.57774842964983,-105.08512035012215', '2');
+    addToArray(kioskList, 'RW-2-lobby', 'Kiosks', '40.57774842964983,-105.08512035012215', '2', 'Rockwell West');
     //RW 2nd floor outside 211
-    addToArray(kioskList, 'RW-2-hallway-211', 'Kiosks', '40.577760121778965,-105.08524840206144', '2');
+    addToArray(kioskList, 'RW-2-hallway-211', 'Kiosks', '40.577760121778965,-105.08524840206144', '2', 'Rockwell West');
     //RW 2nd floor outside 211
-    addToArray(kioskList, 'RW-2-hallway-213', 'Kiosks', '40.57775349857053,-105.08538922233258', '2');
+    addToArray(kioskList, 'RW-2-hallway-213', 'Kiosks', '40.57775349857053,-105.08538922233258', '2'), 'Rockwell West';
     //RW 2nd floor between 220 & 222
-    addToArray(kioskList, 'RW-2-hallway-213', 'Kiosks', '40.57775859157513,-105.08555354412596', '2');
+    addToArray(kioskList, 'RW-2-hallway-213', 'Kiosks', '40.57775859157513,-105.08555354412596', '2', 'Rockwell West');
     //RH south lobby
-    addToArray(kioskList, 'RH-south-lobby', 'Kiosks', '40.57739261243884,-105.08436376564659', '1');
+    addToArray(kioskList, 'RH-south-lobby', 'Kiosks', '40.57739261243884,-105.08436376564659', '1', 'Rockwell Hall');
     //RH north lobby
-    addToArray(kioskList, 'RH-north-lobby', 'Kiosks', '40.57772618468309,-105.08436207030066', '1');
+    addToArray(kioskList, 'RH-north-lobby', 'Kiosks', '40.57772618468309,-105.08436207030066', '1', 'Rockwell Hall');
     
     return {
         roomList,
