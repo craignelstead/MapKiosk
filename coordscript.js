@@ -2,65 +2,6 @@
     Created by Craig Nelstead 2023
 */
 
-//Interface module
-const GUI = (function(doc) {
-    const roomCat = doc.getElementById('roomCat');
-    const roomId = doc.getElementById('roomID');
-    const iframe = doc.getElementById('mapFrame');
-    const adaCheckBox = doc.getElementById('adaCheck');
-    const imgIcon = doc.getElementById('adaIcon');
-    const buildingName = doc.getElementById('buildingLocation');
-
-    //Gets kiosk location from buildingName's data-location property in HTML
-    function getKioskLocation() {
-        return buildingName.dataset.location;
-    }
-
-    //Get location and update header with building name
-    function updateWelcomeMsg() {
-        //buildingName.textContent += KIOSKLOCATION.building;
-    }
-
-    //Assigns listener to changing room name
-    function listenToRoom() {
-        roomId.addEventListener('change', changeFrame.update);
-        adaCheckBox.addEventListener('change', changeFrame.update);
-        imgIcon.addEventListener('change', imgToggle);
-    }
-
-    //Assigns listener to category list
-    function listenToCat() {
-        roomCat.addEventListener('change', updateRoomList);
-    }
-
-    //Toggles ADA check when icon is pressed
-    function imgToggle() {
-        adaCheckBox.checked = !adaCheckBox.checked;
-        changeFrame.update();
-    }
-
-    //Clears room list then repopulates it based off the room category selected
-    function updateRoomList() {
-
-    }
-
-    //Filter room array to see 
-    function updateCurrentRoom() {
-        
-    }
-
-    listenToRoom();
-    listenToCat();
-
-    return {
-        roomCat,
-        roomId,
-        iframe,
-        adaCheckBox,
-        buildingName,
-    }
-});
-
 //Location creator
 const Location = (place, cat, coord, lvl, bld) => {
     let name = place;
@@ -85,8 +26,8 @@ const roomValues = (function() {
     let kioskList = [];
 
     //Create an object and add it to array
-    function addToArray(arr, loc, cat, coord, lvl) {
-        arr.push(Location(loc, cat, coord, lvl));
+    function addToArray(arr, loc, cat, coord, lvl, bld) {
+        arr.push(Location(loc, cat, coord, lvl, bld));
     }
 
     //(Array, 'Name', 'Category', 'Coordinates', 'Level', *optional*'Building name')
@@ -113,34 +54,34 @@ const roomValues = (function() {
     addToArray(roomList, 'RW-222', 'Classrooms', '40.577854,-105.085625', '2');
 
     //Conference Rooms
-    addToArray(roomList, 'RH-119', 'ConferenceRooms', '40.577831,-105.084694', '1');
-    addToArray(roomList, 'RH-133', 'ConferenceRooms', '40.577728,-105.084282', '1');
-    addToArray(roomList, 'RW-208', 'ConferenceRooms', '40.577736,-105.085258', '2');
-    addToArray(roomList, 'RW-211', 'ConferenceRooms', '40.577831,-105.085236', '2');
-    addToArray(roomList, 'RW-220 GLC', 'ConferenceRooms', '40.577728,-105.085648', '2');
+    addToArray(roomList, 'RH-119', 'Conference Rooms', '40.577831,-105.084694', '1');
+    addToArray(roomList, 'RH-133', 'Conference Rooms', '40.577728,-105.084282', '1');
+    addToArray(roomList, 'RW-208', 'Conference Rooms', '40.577736,-105.085258', '2');
+    addToArray(roomList, 'RW-211', 'Conference Rooms', '40.577831,-105.085236', '2');
+    addToArray(roomList, 'RW-220 GLC', 'Conference Rooms', '40.577728,-105.085648', '2');
 
     //Study Rooms
-    addToArray(roomList, 'RH-037 Computer Lab', 'StudyRooms', '40.57737,-105.08429', '-1');
-    addToArray(roomList, 'RH-037A', 'StudyRooms', '40.57740363230701,-105.0842023640847', '-1');
-    addToArray(roomList, 'RH-037B', 'StudyRooms', '40.577404,-105.084183', '-1');
-    addToArray(roomList, 'RH-037C', 'StudyRooms', '40.577374,-105.084152', '-1');
-    addToArray(roomList, 'RW-003 Study Room', 'StudyRooms', '40.57770007062962,-105.08509621024025', '-1');
-    addToArray(roomList, 'RW-004 Sonny Lubick Lounge', 'StudyRooms', '40.577705,-105.084969', '-1');
-    addToArray(roomList, 'RW-008 Study Space', 'StudyRooms', '40.577702,-105.085281', '-1');
-    addToArray(roomList, 'RW-101A', 'StudyRooms', '40.577763,-105.084892', '1');
-    addToArray(roomList, 'RW-200 Student Forum', 'StudyRooms', '40.577702,-105.084824', '2');
-    addToArray(roomList, 'RW-203 Study Room', 'StudyRooms', '40.577793,-105.084869', '2');
-    addToArray(roomList, 'RW-205 Study Room', 'StudyRooms', '40.577793,-105.084915', '2');
+    addToArray(roomList, 'RH-037 Computer Lab', 'Study Rooms', '40.57737,-105.08429', '-1');
+    addToArray(roomList, 'RH-037A', 'Study Rooms', '40.57740363230701,-105.0842023640847', '-1');
+    addToArray(roomList, 'RH-037B', 'Study Rooms', '40.577404,-105.084183', '-1');
+    addToArray(roomList, 'RH-037C', 'Study Rooms', '40.577374,-105.084152', '-1');
+    addToArray(roomList, 'RW-003 Study Room', 'Study Rooms', '40.57770007062962,-105.08509621024025', '-1');
+    addToArray(roomList, 'RW-004 Sonny Lubick Lounge', 'Study Rooms', '40.577705,-105.084969', '-1');
+    addToArray(roomList, 'RW-008 Study Space', 'Study Rooms', '40.577702,-105.085281', '-1');
+    addToArray(roomList, 'RW-101A', 'Study Rooms', '40.577763,-105.084892', '1');
+    addToArray(roomList, 'RW-200 Student Forum', 'Study Rooms', '40.577702,-105.084824', '2');
+    addToArray(roomList, 'RW-203 Study Room', 'Study Rooms', '40.577793,-105.084869', '2');
+    addToArray(roomList, 'RW-205 Study Room', 'Study Rooms', '40.577793,-105.084915', '2');
 
     //Academic Programs
-    addToArray(roomList, 'Accounting Office', 'AcademicPrograms', '40.577736,-105.084564', '2');
-    addToArray(roomList, 'CIS Office', 'AcademicPrograms', '40.57761,-105.084015', '1');
-    addToArray(roomList, 'Finance and Real Estate', 'AcademicPrograms', '40.577736,-105.084557', '3');
-    addToArray(roomList, 'Management Office', 'AcademicPrograms', '40.577732,-105.084129', '2');
-    addToArray(roomList, 'Marketing Office', 'AcademicPrograms', '40.577564,-105.084641', '1');
-    addToArray(roomList, 'Music Business Program', 'AcademicPrograms', '40.577667,-105.085526', '2');
-    addToArray(roomList, 'Graduate Advising', 'AcademicPrograms', '40.57856,-105.083908', '2');
-    addToArray(roomList, 'Undergraduate Advising', 'AcademicPrograms', '40.577705,-105.085373', '1');
+    addToArray(roomList, 'Accounting Office', 'Academic Programs', '40.577736,-105.084564', '2');
+    addToArray(roomList, 'CIS Office', 'Academic Programs', '40.57761,-105.084015', '1');
+    addToArray(roomList, 'Finance and Real Estate', 'Academic Programs', '40.577736,-105.084557', '3');
+    addToArray(roomList, 'Management Office', 'Academic Programs', '40.577732,-105.084129', '2');
+    addToArray(roomList, 'Marketing Office', 'Academic Programs', '40.577564,-105.084641', '1');
+    addToArray(roomList, 'Music Business Program', 'Academic Programs', '40.577667,-105.085526', '2');
+    addToArray(roomList, 'Graduate Advising', 'Academic Programs', '40.57856,-105.083908', '2');
+    addToArray(roomList, 'Undergraduate Advising', 'Academic Programs', '40.577705,-105.085373', '1');
 
     //KIOSK LOCATIONS
     //RW lobby first floor
@@ -163,24 +104,115 @@ const roomValues = (function() {
     addToArray(kioskList, 'RH-south-lobby', 'Kiosks', '40.57739261243884,-105.08436376564659', '1', 'Rockwell Hall');
     //RH north lobby
     addToArray(kioskList, 'RH-north-lobby', 'Kiosks', '40.57772618468309,-105.08436207030066', '1', 'Rockwell Hall');
-    
+
     return {
         roomList,
         kioskList,
     }
-});
+})();
 
-//Determine display
-const changeFrame = (function() {
-    let ada = GUI.adaCheckBox.value;
-    //let locAcoord = ...
-    //let locAlvl = ...
-    //let locBcoord = ...
-    //let locBlvl = ...
+//Interface module
+const GUI = (function(doc) {
+    const roomCat = doc.getElementById('roomCat');
+    const roomId = doc.getElementById('roomID');
+    const iframe = doc.getElementById('mapFrame');
+    const adaCheckBox = doc.getElementById('adaCheck');
+    const imgIcon = doc.getElementById('adaIcon');
+    const buildingName = doc.getElementById('buildingLocation');
 
-    let baseSrc = `https://map.concept3d.com/?id=1977#!ct/0?s/?d/type:walking;
-        ada:${ada};from:${locAcoord},${locAlvl};to${locBcoord},${locBlvl};
-        startName:Start%20Location;endName:End%20Location;?lvl/${locBlvl}`;
+    //Gets kiosk location from buildingName's data-location property in HTML
+    function getKioskLocation() {
+        let kioskId = buildingName.dataset.location;
+        //Filters array of kiosks to match dataset
+        let kioskLocation = roomValues.kioskList.filter(function (el) {
+            return el.name == kioskId;
+        });
+        
+        return kioskLocation[0];
+    }
 
-    //GUI.iframe.src = baseSrc;
-});
+    //Get location and update header with building name
+    function updateWelcomeMsg() {
+        let currentBuilding = getKioskLocation();
+        buildingName.textContent += currentBuilding.building;
+    }
+
+    //Assigns listener to changing room name
+    function listenToRoom() {
+        roomId.addEventListener('change', updateFrame);
+        adaCheckBox.addEventListener('change', updateFrame);
+        imgIcon.addEventListener('change', imgToggle);
+    }
+
+    //Assigns listener to category list
+    function listenToCat() {
+        roomCat.addEventListener('change', populateRoomList);
+    }
+
+    //Toggles ADA check when icon is pressed
+    function imgToggle() {
+        adaCheckBox.checked = !adaCheckBox.checked;
+        updateFrame();
+    }
+
+    //Clears room list then repopulates it based off the room category selected
+    function populateRoomList() {
+        //Clear room list
+        while (roomID.options.length > 0) {
+            roomID.remove(0);
+        }
+
+        //Filter list of rooms to match category
+        const listOfRooms = roomValues.roomList.filter(function (el) {
+            return el.category == roomCat.value;
+        });
+
+        //Add blank option
+        let blank = doc.createElement('option');
+        blank.text = '';
+        roomID.add(blank,0);
+
+        //Add each room from category to room drop down
+        for (let i=0; i<listOfRooms.length; i++) {
+            let newRoom = doc.createElement('option');
+            newRoom.text = listOfRooms[i].name;
+            console.log(listOfRooms[i].name);
+            roomID.add(newRoom,roomID[0]);
+        }
+    }
+
+    //Filter room array to see 
+    function getCurrentRoom() {
+        
+    }
+
+    function updateFrame() {
+        let ada = GUI.adaCheckBox.value;
+        let locAcoord = GUI.getKioskLocation().coordinates;
+        let locAlvl = GUI.getKioskLocation().level;
+        console.log(locAcoord);
+        console.log(locAlvl);
+        //let locBcoord = GUI.getCurrentRoom().coordinates;
+        //let locBlvl = GUI.getCurrentRoom().level;
+
+        // let baseSrc = `https://map.concept3d.com/?id=1977#!ct/0?s/?d/type:walking;
+        //     ada:${ada};from:${locAcoord},${locAlvl};to${locBcoord},${locBlvl};
+        //     startName:Start%20Location;endName:End%20Location;?lvl/${locBlvl}`;
+
+        //GUI.iframe.src = baseSrc;
+    }
+
+    updateWelcomeMsg();
+    listenToRoom();
+    listenToCat();
+
+    return {
+        roomCat,
+        roomId,
+        iframe,
+        adaCheckBox,
+        buildingName,
+        getKioskLocation,
+        updateWelcomeMsg,
+    }
+})(document);

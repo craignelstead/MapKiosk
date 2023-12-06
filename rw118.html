@@ -10,7 +10,22 @@
 <body>
     <div id="container">
         <div id="topbar">
-            <h2 id="buildingLocation" data-location="118">Welcome to the College of Business! You are in </h2>
+            <!--
+                The h2 below with the id "buildingLocation" should have one of
+                the following values for the data-location attribute:
+                    RW-lobby
+                    RW-1-hallway-central
+                    RW-1-hallway-107
+                    RW-1-hallway-west
+                    RW-2-lobby
+                    RW-2-hallway-211
+                    RW-2-hallway-213
+                    RH-south-lobby
+                    RH-north-lobby
+                This value should be based on the kiosk's location and will be
+                used to determine the starting location (Marker A) on the map
+            -->
+            <h2 id="buildingLocation" data-location="RW-1-hallway-west">Welcome to the College of Business! You are in </h2>
         </div>
         <iframe id="mapFrame" scrolling="no" src="https://tinyurl.com/RHSdefault"></iframe>
         <div id="bottombar">
