@@ -99,7 +99,7 @@ const roomValues = (function() {
     //RW 2nd floor outside 211
     addToArray(kioskList, 'RW-2-hallway-213', 'Kiosks', '40.57775349857053,-105.08538922233258', '2'), 'Rockwell West';
     //RW 2nd floor between 220 & 222
-    addToArray(kioskList, 'RW-2-hallway-213', 'Kiosks', '40.57775859157513,-105.08555354412596', '2', 'Rockwell West');
+    addToArray(kioskList, 'RW-2-hallway-west', 'Kiosks', '40.57775859157513,-105.08555354412596', '2', 'Rockwell West');
     //RH south lobby
     addToArray(kioskList, 'RH-south-lobby', 'Kiosks', '40.57739261243884,-105.08436376564659', '1', 'Rockwell Hall');
     //RH north lobby
@@ -134,7 +134,7 @@ const GUI = (function(doc) {
     //Get location and update header with building name
     function updateWelcomeMsg() {
         let currentBuilding = getKioskLocation();
-        buildingName.textContent += currentBuilding.building;
+        buildingName.textContent += currentBuilding.building +'.';
     }
 
     //Assigns listener to changing room name
@@ -176,7 +176,6 @@ const GUI = (function(doc) {
         for (let i=0; i<listOfRooms.length; i++) {
             let newRoom = doc.createElement('option');
             newRoom.text = listOfRooms[i].name;
-            console.log(listOfRooms[i].name);
             roomId.add(newRoom,roomId[0]);
         }
     }
@@ -203,13 +202,74 @@ const GUI = (function(doc) {
             ada:${ada};from:${locAcoord},${locAlvl};to:${locBcoord},${locBlvl};
             startName:Start%20Location;endName:End%20Location;?lvl/${locBlvl}`;
 
-            console.log(baseSrc);
+        console.log(baseSrc);
 
         GUI.iframe.src = baseSrc;
     }
 
+    //Generate default iframe source on page load
+    function defaultFrame() {
+        let ada = adaCheckBox.checked;
+        let locA = getKioskLocation();
+        let locAcoord = locA.coordinates;
+        let locAlvl = locA.level;
+        let locB;
+
+        //Return desired kiosk location for default iframe src
+        function filterKiosk(destination) {
+            console.log(destination);
+            return roomValues.kioskList.filter(function (el) {
+                return el.name == destination;
+            });
+        }
+
+        console.log(locA.name);
+
+        //Based off kiosk location, set default Marker B to another kiosk
+        //on the same floor of the same building
+        switch (locA.name) {
+            case 'RW-lobby':
+            case 'RW-1-hallway-central':
+                locB = filterKiosk('RW-1-hallway-west');
+                break;
+            case 'RW-1-hallway-107':
+            case 'RW-1-hallway-west':
+                locB = filterKiosk('RW-lobby');
+                break;
+            case 'RW-2-lobby':
+            case 'RW-2-hallway-211':
+                locB = filterKiosk('RW-2-hallway-west');
+                break;
+            case 'RW-2-hallway-213':
+            case 'RW-2-hallway-west':
+                locB = filterKiosk('RW-2-lobby');
+                break;
+            case 'RH-south-lobby':
+                locB = filterKiosk('RH-north-lobby');
+                break;
+            case 'RH-north-lobby':
+                locB = filterKiosk('RH-south-lobby');
+                break;
+        }
+
+        console.log(locA);
+        console.log(locB);
+
+        let locBcoord = locB[0].coordinates;
+        let locBlvl = locB[0].level;
+
+        let defaultSrc = `https://map.concept3d.com/?id=1977#!ct/0?s/?d/type:walking;
+            ada:${ada};from:${locAcoord},${locAlvl};to:${locBcoord},${locBlvl};
+            startName:Start%20Location;endName:End%20Location;?lvl/${locBlvl}`;
+
+        console.log(defaultSrc);
+
+        iframe.src = defaultSrc;
+    }
+
     updateWelcomeMsg();
     populateRoomList();
+    defaultFrame();
     listenToRoom();
     listenToCat();
 
