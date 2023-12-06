@@ -209,6 +209,7 @@ const GUI = (function(doc) {
     }
 
     updateWelcomeMsg();
+    populateRoomList();
     listenToRoom();
     listenToCat();
 
