@@ -141,7 +141,7 @@ const GUI = (function(doc) {
     function listenToRoom() {
         roomId.addEventListener('change', updateFrame);
         adaCheckBox.addEventListener('change', updateFrame);
-        imgIcon.addEventListener('change', imgToggle);
+        imgIcon.addEventListener('click', imgToggle);
     }
 
     //Assigns listener to category list
@@ -151,7 +151,7 @@ const GUI = (function(doc) {
 
     //Toggles ADA check when icon is pressed
     function imgToggle() {
-        adaCheckBox.checked = !adaCheckBox.checked;
+        GUI.adaCheckBox.checked = !GUI.adaCheckBox.checked;
         updateFrame();
     }
 
@@ -177,29 +177,35 @@ const GUI = (function(doc) {
             let newRoom = doc.createElement('option');
             newRoom.text = listOfRooms[i].name;
             console.log(listOfRooms[i].name);
-            roomID.add(newRoom,roomID[0]);
+            roomId.add(newRoom,roomId[0]);
         }
     }
 
-    //Filter room array to see 
+    //Filter room array to get currently selected option
     function getCurrentRoom() {
+        //Filters array of locations to match roomID value
+        let destinationLocation = roomValues.roomList.filter(function (el) {
+            return el.name == roomId.value;
+        });
         
+        return destinationLocation[0];
     }
 
+    //Generate a new URL and update the iframe's src
     function updateFrame() {
-        let ada = GUI.adaCheckBox.value;
+        let ada = GUI.adaCheckBox.checked;
         let locAcoord = GUI.getKioskLocation().coordinates;
         let locAlvl = GUI.getKioskLocation().level;
-        console.log(locAcoord);
-        console.log(locAlvl);
-        //let locBcoord = GUI.getCurrentRoom().coordinates;
-        //let locBlvl = GUI.getCurrentRoom().level;
+        let locBcoord = getCurrentRoom().coordinates;
+        let locBlvl = getCurrentRoom().level;
 
-        // let baseSrc = `https://map.concept3d.com/?id=1977#!ct/0?s/?d/type:walking;
-        //     ada:${ada};from:${locAcoord},${locAlvl};to${locBcoord},${locBlvl};
-        //     startName:Start%20Location;endName:End%20Location;?lvl/${locBlvl}`;
+        let baseSrc = `https://map.concept3d.com/?id=1977#!ct/0?s/?d/type:walking;
+            ada:${ada};from:${locAcoord},${locAlvl};to:${locBcoord},${locBlvl};
+            startName:Start%20Location;endName:End%20Location;?lvl/${locBlvl}`;
 
-        //GUI.iframe.src = baseSrc;
+            console.log(baseSrc);
+
+        GUI.iframe.src = baseSrc;
     }
 
     updateWelcomeMsg();
