@@ -40,8 +40,8 @@ const roomValues = (function() {
     addToArray(roomList, 'RH-139', 'Classrooms', '40.577843,-105.084038', '1');
     addToArray(roomList, 'RH-165', 'Classrooms', '40.577419,-105.084152', '1');
     addToArray(roomList, 'RH-167', 'Classrooms', '40.577366,-105.084236', '1');
-    addToArray(roomList, 'RH-170', 'Classrooms', '40.577366,-105.084236', '1');
-    addToArray(roomList, 'RH-172', 'Classrooms', '40.577366,-105.084236', '1');
+    addToArray(roomList, 'RH-170', 'Classrooms', '40.57737,-105.084488', '1');
+    addToArray(roomList, 'RH-172', 'Classrooms', '40.577415,-105.084602', '1');
     addToArray(roomList, 'RW-101', 'Classrooms', '40.57785589197272,-105.08491113782289', '1');
     addToArray(roomList, 'RW-103', 'Classrooms', '40.577854,-105.084991', '1');
     addToArray(roomList, 'RW-105', 'Classrooms', '40.57785,-105.085136', '1');
