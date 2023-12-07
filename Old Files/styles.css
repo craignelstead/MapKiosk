@@ -23,22 +23,26 @@ body {
     align-items: center;
 }
 
+/* Portrait */
 #mapFrame {
     position:absolute;
+    left:-43.5%;
+    height: 100%;
+    width: 143.5%;
     overflow: hidden;
     border: none;
-    height: 100%;
 }
 
-.portrait {
-    left:-43.5%;
-    width: 143.5%;
-}
 
-.landscape {
+/*Landscape*/
+/* #mapFrame {
+    position:absolute;
     left:-24.5%;
+    height: 100%;
     width: 124.5%;
-}
+    overflow: hidden;
+    border: none;
+} */
 
 #bottombar {
     bottom: 0;

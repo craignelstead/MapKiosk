@@ -23,26 +23,22 @@ body {
     align-items: center;
 }
 
-/* Portrait */
 #mapFrame {
     position:absolute;
-    left:-43.5%;
-    height: 100%;
-    width: 143.5%;
     overflow: hidden;
     border: none;
+    height: 100%;
 }
 
+.portrait {
+    left:-43.5%;
+    width: 143.5%;
+}
 
-/*Landscape*/
-/* #mapFrame {
-    position:absolute;
+.landscape {
     left:-24.5%;
-    height: 100%;
     width: 124.5%;
-    overflow: hidden;
-    border: none;
-} */
+}
 
 #bottombar {
     bottom: 0;
@@ -59,26 +55,26 @@ body {
 }
 
 #navbuttons {
-    width: 800px;
+    width: 900px;
     display: flex;
     gap: 40px;
     justify-content: center;
 }
 
 #roomCat, #roomID {
-    font-size: 18px;
+    font-size: 24px;
 }
 
 #roomCat {
-    width: 190px;
+    width: 250px;
 }
 
 #roomID {
-    width: 310px;
+    width: 350px;
 }
 
 h2 {
-    font-size: 10;
+    font-size: 36px;
     color: white;
     text-align:center;
     font-family: 'factoria-book', sans-serif;
@@ -87,20 +83,20 @@ h2 {
 }
 
 p {
-    font-size: 22px;
+    font-size: 24px;
     color: white;
     margin: 5px;
     font-family: 'prox-regular', sans-serif;
 }
 
 #adaCheck {
-    width: 30px;
-    height: 30px;
+    width: 40px;
+    height: 40px;
 }
 
 #adaIcon {
-    width: 35px;
-    height: 35px;
+    width: 45px;
+    height: 45px;
 }
 
 #adaBox {
