@@ -20,6 +20,7 @@ const Location = (place, cat, coord, lvl, bld) => {
 }
 
 //Location values
+//IF ADDING A NEW LOCATION, ADD IT TO THE MODULE BELOW
 const roomValues = (function() {
     //Array of rooms and array of kiosks
     let roomList = [];
@@ -195,12 +196,26 @@ const GUI = (function(doc) {
         let ada = getAdaStatus();
         let locAcoord = GUI.getKioskLocation().coordinates;
         let locAlvl = GUI.getKioskLocation().level;
-        let locBcoord = getCurrentRoom().coordinates;
-        let locBlvl = getCurrentRoom().level;
 
-        let baseSrc = `https://map.concept3d.com/?id=1977#!ct/0?s/?d/type:walking;ada:${ada};from:${locAcoord},${locAlvl};to:${locBcoord},${locBlvl};startName:Start%20Location;endName:End%20Location;?lvl/${locBlvl}`;
+        //If ADA button is pressed while no Room ID is selected, toggle ADA 
+        //with current URL
+        if (roomId.value == '') {
+            let currentSrc = iframe.src;
 
-        iframe.src = baseSrc;
+            //Replace either true or false ADA status in URL to match ADA button
+            let newSrc = currentSrc
+                .replace('true', getAdaStatus())
+                .replace('false', getAdaStatus());
+        
+            iframe.src = newSrc;
+        }
+        else {
+            let locBcoord = getCurrentRoom().coordinates;
+            let locBlvl = getCurrentRoom().level;
+            let baseSrc = `https://map.concept3d.com/?id=1977#!ct/0?s/?d/type:walking;ada:${ada};from:${locAcoord},${locAlvl};to:${locBcoord},${locBlvl};startName:Start%20Location;endName:End%20Location;?lvl/${locBlvl}`;
+
+            iframe.src = baseSrc;
+        }
 
         console.log(iframe.src);
     }
@@ -280,12 +295,3 @@ const GUI = (function(doc) {
         updateWelcomeMsg,
     }
 })(document);
-
-/* 
-Shared link from c3d:
-https://map.concept3d.com/?id=1977#!ct/0?s/?d/type:walking;ada:true;from:40.57739261243884,-105.08436376564659,1;to:40.577835,-105.085136,2;startName:Start%20Location;endName:End%20Location;
-https://map.concept3d.com/?id=1977#!ct/0?s/?d/type:walking;ada:true;from:40.57739261243884,-105.08436376564659,1;to:40.577835,-105.085136,2;startName:Start%20Location;endName:End%20Location;?lvl/2
-Src link that's not working:
-
-
-*/
