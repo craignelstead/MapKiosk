@@ -7,20 +7,20 @@ Made by Craig Nelstead 2023
 How it works:
 
 A device with a touch interface should run an account in single app kiosk mode
-with the URL to load being the appropriate local html file. 
+with the URL to load being the appropriate html file based on the kiosk 
+location. 
 
 The html file has a basic interface that will update the embedded iframe
 to update the map.
 
-Each html file has its own script. The script works by appending the room name
-to the end of the shortened URL (using tinyurl.com).
+To adjust the location of the kiosk, open the HTML page with a text editor and 
+adjust #buildingLocation's data-location value to the desired option from the 
+list.
 
-Each set of directions is a unique link that has been generated with the 
-starting point set as the location of where the kiosk is to be placed. There is
-a standard version and an ADA version of each link.
-
-Selecting the room name will update the iframe source by taking the selected
-room name and corresponding it with the shortened URL.
+The script works by building a custom URL for the HTML page's iframe with 
+the concept3D map embedded. The script has coordinates for various locations 
+and uses them as variables to build the URL for the iframe. It also factors in
+whether an ADA route has been selected and the floor level of the destination.
 
 ******
 
@@ -66,7 +66,7 @@ display and click Next.
 
 Enter the file location of the appropriate HTML file in the URL. It should look
 something like this:
-    file:C:\Map%20Kiosk\rw_mainlobbykiosk.html
+    file:C:\Map%20Kiosk\rw_lobby.html
 
     *If the file is local, the URL must begin with file:
 
