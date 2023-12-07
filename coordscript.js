@@ -121,6 +121,22 @@ const GUI = (function(doc) {
     const imgIcon = doc.getElementById('adaIcon');
     const buildingName = doc.getElementById('buildingLocation');
 
+    const portrait = window.matchMedia('(orientation: portrait)').matches;
+    
+    //Adds relevant class to mapFrame depending on whether or not portrait 
+    //Orientation is detected
+    function changeOrientation(portraitMode) {
+        if (portraitMode === true) {
+            iframe.classList.add('portrait');
+        }
+        else {
+            iframe.classList.add('landscape');
+        }
+        alert('Portrait mode: ' + portraitMode);
+    }
+
+    changeOrientation(portrait);
+
     //Gets kiosk location from buildingName's data-location property in HTML
     function getKioskLocation() {
         let kioskId = buildingName.dataset.location;
