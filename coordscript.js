@@ -132,6 +132,7 @@ const GUI = (function(doc) {
         else {
             iframe.classList.add('landscape');
         }
+        console.log(portraitMode);
     }
 
     changeOrientation(portrait);
