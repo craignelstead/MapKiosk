@@ -192,24 +192,26 @@ const GUI = (function(doc) {
 
     //Generate a new URL and update the iframe's src
     function updateFrame() {
-        let ada = GUI.adaCheckBox.checked;
+        let ada = getAdaStatus();
         let locAcoord = GUI.getKioskLocation().coordinates;
         let locAlvl = GUI.getKioskLocation().level;
         let locBcoord = getCurrentRoom().coordinates;
         let locBlvl = getCurrentRoom().level;
 
-        let baseSrc = `https://map.concept3d.com/?id=1977#!ct/0?s/?d/type:walking;
-            ada:${ada};from:${locAcoord},${locAlvl};to:${locBcoord},${locBlvl};
-            startName:Start%20Location;endName:End%20Location;?lvl/${locBlvl}`;
+        let baseSrc = `https://map.concept3d.com/?id=1977#!ct/0?s/?d/type:walking;ada:${ada};from:${locAcoord},${locAlvl};to:${locBcoord},${locBlvl};startName:Start%20Location;endName:End%20Location;?lvl/${locBlvl}`;
 
-        console.log(baseSrc);
+        iframe.src = baseSrc;
 
-        GUI.iframe.src = baseSrc;
+        console.log(iframe.src);
     }
 
-    //Generate default iframe source on page load
+    function getAdaStatus() {
+        return adaCheckBox.checked;
+    }
+
+    //Generate default iframe source on page load (based on kiosk location)
     function defaultFrame() {
-        let ada = adaCheckBox.checked;
+        let ada = getAdaStatus();
         let locA = getKioskLocation();
         let locAcoord = locA.coordinates;
         let locAlvl = locA.level;
@@ -252,15 +254,10 @@ const GUI = (function(doc) {
                 break;
         }
 
-        console.log(locA);
-        console.log(locB);
-
         let locBcoord = locB[0].coordinates;
         let locBlvl = locB[0].level;
 
-        let defaultSrc = `https://map.concept3d.com/?id=1977#!ct/0?s/?d/type:walking;
-            ada:${ada};from:${locAcoord},${locAlvl};to:${locBcoord},${locBlvl};
-            startName:Start%20Location;endName:End%20Location;?lvl/${locBlvl}`;
+        let defaultSrc = `https://map.concept3d.com/?id=1977#!ct/0?s/?d/type:walking;ada:${ada};from:${locAcoord},${locAlvl};to:${locBcoord},${locBlvl};startName:Start%20Location;endName:End%20Location;?lvl/${locBlvl}`;
 
         console.log(defaultSrc);
 
@@ -283,3 +280,12 @@ const GUI = (function(doc) {
         updateWelcomeMsg,
     }
 })(document);
+
+/* 
+Shared link from c3d:
+https://map.concept3d.com/?id=1977#!ct/0?s/?d/type:walking;ada:true;from:40.57739261243884,-105.08436376564659,1;to:40.577835,-105.085136,2;startName:Start%20Location;endName:End%20Location;
+https://map.concept3d.com/?id=1977#!ct/0?s/?d/type:walking;ada:true;from:40.57739261243884,-105.08436376564659,1;to:40.577835,-105.085136,2;startName:Start%20Location;endName:End%20Location;?lvl/2
+Src link that's not working:
+
+
+*/
