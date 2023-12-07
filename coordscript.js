@@ -132,7 +132,6 @@ const GUI = (function(doc) {
         else {
             iframe.classList.add('landscape');
         }
-        alert('Portrait mode: ' + portraitMode);
     }
 
     changeOrientation(portrait);
@@ -233,7 +232,7 @@ const GUI = (function(doc) {
             iframe.src = baseSrc;
         }
 
-        console.log(iframe.src);
+        //console.log(iframe.src);
     }
 
     function getAdaStatus() {
@@ -250,13 +249,13 @@ const GUI = (function(doc) {
 
         //Return desired kiosk location for default iframe src
         function filterKiosk(destination) {
-            console.log(destination);
+            //console.log(destination);
             return roomValues.kioskList.filter(function (el) {
                 return el.name == destination;
             });
         }
 
-        console.log(locA.name);
+        //console.log(locA.name);
 
         //Based off kiosk location, set default Marker B to another kiosk
         //on the same floor of the same building
@@ -289,8 +288,6 @@ const GUI = (function(doc) {
         let locBlvl = locB[0].level;
 
         let defaultSrc = `https://map.concept3d.com/?id=1977#!ct/0?s/?d/type:walking;ada:${ada};from:${locAcoord},${locAlvl};to:${locBcoord},${locBlvl};startName:Start%20Location;endName:End%20Location;?lvl/${locBlvl}`;
-
-        console.log(defaultSrc);
 
         iframe.src = defaultSrc;
     }
