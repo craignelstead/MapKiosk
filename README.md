@@ -15,12 +15,16 @@ to update the map.
 
 To adjust the location of the kiosk, open the HTML page with a text editor and 
 adjust #buildingLocation's data-location value to the desired option from the 
-list.
+list. script.js will use the attribute value to determine Marker A's default
+location on the map.
 
 The script works by building a custom URL for the HTML page's iframe with 
 the concept3D map embedded. The script has coordinates for various locations 
 and uses them as variables to build the URL for the iframe. It also factors in
 whether an ADA route has been selected and the floor level of the destination.
+
+The script also detects whether the display is in landscape or portrait mode and
+adjusts the map automatically by added the relevant class to #mapFrame.
 
 ******
 
@@ -48,6 +52,8 @@ Log into the local account and adjust the following settings:
 
     *The kiosk is only able to be locked down if the concept3d sidebar is
     offscreen in the iframe. This will only work with the scale set to 100%.
+    If the scale is anything other than 100%, the sidebar may be visible or 
+    portions of the map may be hidden.
 
 Log back into the administrator account.
 
@@ -99,3 +105,27 @@ password. After you have done this, click OK.
 
 Now when you reboot the computer, it should automatically log into the local 
 account running kiosk mode.
+
+******
+
+Potential future issues / maintenance:
+
+-Concept 3d changes layout of map:
+If this happens and the frame needs adjustment, you may need to adjust several
+properties within styles.css. Go to the classes .portrait and .landscape and
+adjust the 'left' and 'width' properties as needed. This will move the sidebar
+into or out of the visible iframe.
+
+-A new location needs to be added:
+Instructions exist within script.js. By adding a new object to the appropriate 
+array, a new location can be added to the wayfinding application. The following
+information and syntax is required within the roomValues module:
+
+addToArray(roomList, '*ROOM NAME*', '*ROOM CATEGORY*', '*COORDINATES*', '*FLOOR LEVEL*');
+
+Room name will be the name displayed in the dropdown. Category will be the 
+category displayed in the drop down. Coordinates will be latitude and longitude
+separated by a comma with no space (ex: 40.57762227031867,-105.08565825569146).
+Floor level should be an integer ranging from -1 and 3.
+
+This can be added directly below the existing objects.

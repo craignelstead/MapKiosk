@@ -31,7 +31,7 @@ const Location = (place, cat, coord, lvl, bld) => {
 }
 
 //Location values
-//IF ADDING A NEW LOCATION, ADD IT TO THE MODULE BELOW
+//IF ADDING A NEW LOCATION, ADD IT TO THE MODULE BELOW IN PROPER LOCATION
 const roomValues = (function() {
     //Array of rooms and array of kiosks
     let roomList = [];
@@ -42,6 +42,8 @@ const roomValues = (function() {
         arr.push(Location(loc, cat, coord, lvl, bld));
     }
 
+    //NEW LOCATION EXAMPLE:
+    //addToArray(*ROOM OR KIOSK ARRAY*, '*ROOM NAME*', '*ROOM CATEGORY*', '*COORDINATES*', '*FLOOR LEVEL*');
     //(Array, 'Name', 'Category', 'Coordinates', 'Level', *optional*'Building name')
 
     //ROOM LOCATIONS
@@ -94,9 +96,6 @@ const roomValues = (function() {
     addToArray(roomList, 'Music Business Program', 'Academic Programs', '40.577667,-105.085526', '2');
     addToArray(roomList, 'Graduate Advising', 'Academic Programs', '40.57856,-105.083908', '2');
     addToArray(roomList, 'Undergraduate Advising', 'Academic Programs', '40.577705,-105.085373', '1');
-
-    //NEW LOCATION EXAMPLE:
-    //addToArray(*ROOM OR KIOSK ARRAY*, '*ROOM NAME*', '*ROOM CATEGORY*', '*COORDINATES*', '*FLOOR LEVEL*');
 
     //KIOSK LOCATIONS
     //RW lobby first floor
@@ -189,8 +188,8 @@ const GUI = (function(doc) {
     //Clears room list then repopulates it based off the room category selected
     function populateRoomList() {
         //Clear room list
-        while (roomID.options.length > 0) {
-            roomID.remove(0);
+        while (roomId.options.length > 0) {
+            roomId.remove(0);
         }
 
         //Filter list of rooms to match category
@@ -224,6 +223,7 @@ const GUI = (function(doc) {
     //Generate a new URL and update the iframe's src
     function updateFrame() {
         let ada = getAdaStatus();
+        let locAname = GUI.getKioskLocation().name;
         let locAcoord = GUI.getKioskLocation().coordinates;
         let locAlvl = GUI.getKioskLocation().level;
 
@@ -240,14 +240,16 @@ const GUI = (function(doc) {
             iframe.src = newSrc;
         }
         else {
+            let locBname = getCurrentRoom().name;
             let locBcoord = getCurrentRoom().coordinates;
             let locBlvl = getCurrentRoom().level;
             let baseSrc = `https://map.concept3d.com/?id=1977#!ct/0?s/?d/type:walking;ada:${ada};from:${locAcoord},${locAlvl};to:${locBcoord},${locBlvl};startName:Start%20Location;endName:End%20Location;?lvl/${locBlvl}`;
 
             iframe.src = baseSrc;
-        }
 
-        //console.log(iframe.src);
+            //Send data for tracking
+            sendData(locAname, locBname, ada);
+        }
     }
 
     function getAdaStatus() {
@@ -269,8 +271,6 @@ const GUI = (function(doc) {
                 return el.name == destination;
             });
         }
-
-        //console.log(locA.name);
 
         //Based off kiosk location, set default Marker B to another kiosk
         //on the same floor of the same building
@@ -305,6 +305,11 @@ const GUI = (function(doc) {
         let defaultSrc = `https://map.concept3d.com/?id=1977#!ct/0?s/?d/type:walking;ada:${ada};from:${locAcoord},${locAlvl};to:${locBcoord},${locBlvl};startName:Start%20Location;endName:End%20Location;?lvl/${locBlvl}`;
 
         iframe.src = defaultSrc;
+    }
+
+    //This will export data for tracking... when it is created
+    function sendData(fromLoc, toLoc, ada) {
+        console.log(`From ${fromLoc} to ${toLoc} ADA: ${ada}`);
     }
 
     updateWelcomeMsg();
