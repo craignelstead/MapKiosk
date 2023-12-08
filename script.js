@@ -248,7 +248,7 @@ const GUI = (function(doc) {
             iframe.src = baseSrc;
 
             //Send data for tracking
-            sendData(locAname, locBname, ada);
+            tracker.sendData(locAname, locBname, ada);
         }
     }
 
@@ -307,11 +307,6 @@ const GUI = (function(doc) {
         iframe.src = defaultSrc;
     }
 
-    //This will export data for tracking... when it is created
-    function sendData(fromLoc, toLoc, ada) {
-        console.log(`From ${fromLoc} to ${toLoc} ADA: ${ada}`);
-    }
-
     updateWelcomeMsg();
     populateRoomList();
     defaultFrame();
@@ -328,3 +323,15 @@ const GUI = (function(doc) {
         updateWelcomeMsg,
     }
 })(document);
+
+//This will export data for tracking
+const tracker = (function() {
+    //Parameter: start point, end point, ada route
+    function sendData(fromLoc, toLoc, ada) {
+        console.log(`From ${fromLoc} to ${toLoc} ADA: ${ada}`);
+    }
+
+    return {
+        sendData,
+    }
+})();
