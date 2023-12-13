@@ -145,7 +145,7 @@ const GUI = (function(doc) {
         else {
             iframe.classList.add('landscape');
         }
-        console.log(portraitMode);
+        //console.log(portraitMode);
     }
 
     changeOrientation(portrait);
@@ -326,9 +326,41 @@ const GUI = (function(doc) {
 
 //This will export data for tracking
 const tracker = (function() {
+    //API endpoint
+    const apiUrl = 'http://localhost:3000/api/data';
+
     //Parameter: start point, end point, ada route
     function sendData(fromLoc, toLoc, ada) {
         console.log(`From ${fromLoc} to ${toLoc} ADA: ${ada}`);
+        const data = {
+            fromLoc: fromLoc,
+            toLoc: toLoc,
+            ada: ada,
+        }
+
+        fetch(apiUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
+
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Network response was not ok. Status: ${response.status} ${response.statusText}`);
+            }
+
+            return response.json();
+        })
+
+        .then(responseData => {
+            console.log('Data sent successfully:', responseData);
+        })
+
+        .catch(error => {
+            console.error('Error sending data:', error);
+        })
     }
 
     return {
