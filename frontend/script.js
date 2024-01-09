@@ -135,6 +135,15 @@ const GUI = (function(doc) {
     const buildingName = doc.getElementById('buildingLocation');
 
     const portrait = window.matchMedia('(orientation: portrait)').matches;
+
+    //Removes touch notice on doc touch
+    doc.addEventListener('touchstart', function(event) {
+        const touchNotice = doc.getElementById('touchContainer');
+        touchNotice.classList.toggle('fade-out');
+        setTimeout(function() {
+            touchNotice.remove();
+        }, 500);
+    });
     
     //Adds relevant class to mapFrame depending on whether or not portrait 
     //Orientation is detected
