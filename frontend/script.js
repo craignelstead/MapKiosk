@@ -143,19 +143,23 @@ const GUI = (function(doc) {
     //Removes touch notice on doc touch
     doc.addEventListener('touchstart', function(event) {
         const touchNotice = doc.getElementById('touchContainer');
-        touchNotice.classList.toggle('fade-out');
-        setTimeout(function() {
-            touchNotice.remove();
-        }, 500);
+        if (doc.contains(touchNotice)) {
+            touchNotice.classList.toggle('fade-out');
+            setTimeout(function() {
+                touchNotice.remove();
+            }, 500);
+        }
     });
 
     //Removes touch notice on doc click
     doc.addEventListener('click', function(event) {
         const touchNotice = doc.getElementById('touchContainer');
-        touchNotice.classList.toggle('fade-out');
-        setTimeout(function() {
-            touchNotice.remove();
-        }, 500);
+        if (doc.contains(touchNotice)) {
+            touchNotice.classList.toggle('fade-out');
+            setTimeout(function() {
+                touchNotice.remove();
+            }, 500);
+        }
     });
     
     //Adds relevant class to mapFrame depending on whether or not portrait 
@@ -265,12 +269,14 @@ const GUI = (function(doc) {
             let locBname = getCurrentRoom().name;
             let locBcoord = getCurrentRoom().coordinates;
             let locBlvl = getCurrentRoom().level;
-            let baseSrc = `https://map.concept3d.com/?id=1977#!ct/0?s/?d/type:walking;ada:${ada};from:${locAcoord},${locAlvl};to:${locBcoord},${locBlvl};startName:Start%20Location;endName:End%20Location;?lvl/${locBlvl}`;
-
+            let baseSrc = `https://map.concept3d.com/?id=1977#!ce/66741?ct/0?s/?d/type:walking;ada:${ada};from:${locAcoord},${locAlvl};to:${locBcoord},${locBlvl};Start%20Location:Start%20Location;End%20Location:End%20Location?lvl/${locBlvl}`;
+            //Above is new URL format, below is old URL format
+            //let baseSrc = `https://map.concept3d.com/?id=1977#!ct/0?s/?d/type:walking;ada:${ada};from:${locAcoord},${locAlvl};to:${locBcoord},${locBlvl};startName:Start%20Location;endName:End%20Location;?lvl/${locBlvl}`;
+            console.log(baseSrc);
             iframe.src = baseSrc;
 
             //Send data for tracking
-            tracker.sendData(locAname, locBname, ada);
+            //tracker.sendData(locAname, locBname, ada);
         }
     }
 
@@ -324,7 +330,7 @@ const GUI = (function(doc) {
         let locBcoord = locB[0].coordinates;
         let locBlvl = locB[0].level;
 
-        let defaultSrc = `https://map.concept3d.com/?id=1977#!ct/0?s/?d/type:walking;ada:${ada};from:${locAcoord},${locAlvl};to:${locBcoord},${locBlvl};startName:Start%20Location;endName:End%20Location;?lvl/${locBlvl}`;
+        let defaultSrc = `https://map.concept3d.com/?id=1977#!ce/66741?ct/0?s/?d/type:walking;ada:${ada};from:${locAcoord},${locAlvl};to:${locBcoord},${locBlvl};Start Location:Start%20Location;End Location:End%20Location`;
 
         iframe.src = defaultSrc;
     }
