@@ -87,15 +87,19 @@ const roomValues = (function() {
     addToArray(roomList, 'RW-203 Study Room', 'Study Rooms', '40.577793,-105.084869', '2');
     addToArray(roomList, 'RW-205 Study Room', 'Study Rooms', '40.577793,-105.084915', '2');
 
-    //Academic Programs
-    addToArray(roomList, 'Accounting Office', 'Academic Programs', '40.577736,-105.084564', '2');
-    addToArray(roomList, 'CIS Office', 'Academic Programs', '40.57761,-105.084015', '1');
-    addToArray(roomList, 'Finance and Real Estate', 'Academic Programs', '40.577736,-105.084557', '3');
-    addToArray(roomList, 'Management Office', 'Academic Programs', '40.577732,-105.084129', '2');
-    addToArray(roomList, 'Marketing Office', 'Academic Programs', '40.577564,-105.084641', '1');
-    addToArray(roomList, 'Music Business Program', 'Academic Programs', '40.577667,-105.085526', '2');
-    addToArray(roomList, 'Graduate Advising', 'Academic Programs', '40.57856,-105.083908', '2');
-    addToArray(roomList, 'Undergraduate Advising', 'Academic Programs', '40.577705,-105.085373', '1');
+    //Academic Support
+    addToArray(roomList, 'Accounting Office', 'Academic Support', '40.577736,-105.084564', '2');
+    addToArray(roomList, 'CIS Office', 'Academic Support', '40.57761,-105.084015', '1');
+    addToArray(roomList, 'Finance and Real Estate', 'Academic Support', '40.577736,-105.084557', '3');
+    addToArray(roomList, 'Management Office', 'Academic Support', '40.577732,-105.084129', '2');
+    addToArray(roomList, 'Marketing Office', 'Academic Support', '40.577564,-105.084641', '1');
+    addToArray(roomList, 'Music Business Program', 'Academic Support', '40.577667,-105.085526', '2');
+    addToArray(roomList, 'Graduate Advising', 'Academic Support', '40.57856,-105.083908', '2');
+    addToArray(roomList, 'Undergraduate Advising', 'Academic Support', '40.577705,-105.085373', '1');
+    addToArray(roomList, 'Career Management Center', 'Academic Support', '40.57771053664206,-105.08519577950727', '2'); //
+    addToArray(roomList, 'COB Front Help Desk', 'Academic Support', '40.5777632127963,-105.08433377523691', '1'); //
+    addToArray(roomList, 'IT Student Help Desk', 'Academic Support', '40.57733281735142,-105.08440351267113', '-1'); //
+    //
 
     //KIOSK LOCATIONS
     //RW lobby first floor
@@ -138,6 +142,15 @@ const GUI = (function(doc) {
 
     //Removes touch notice on doc touch
     doc.addEventListener('touchstart', function(event) {
+        const touchNotice = doc.getElementById('touchContainer');
+        touchNotice.classList.toggle('fade-out');
+        setTimeout(function() {
+            touchNotice.remove();
+        }, 500);
+    });
+
+    //Removes touch notice on doc click
+    doc.addEventListener('click', function(event) {
         const touchNotice = doc.getElementById('touchContainer');
         touchNotice.classList.toggle('fade-out');
         setTimeout(function() {
@@ -209,7 +222,7 @@ const GUI = (function(doc) {
         //Add blank option
         let blank = doc.createElement('option');
         blank.text = '';
-        roomID.add(blank,0);
+        roomId.add(blank,0);
 
         //Add each room from category to room drop down
         for (let i=0; i<listOfRooms.length; i++) {
