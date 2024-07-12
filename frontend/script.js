@@ -276,7 +276,7 @@ const GUI = (function(doc) {
             iframe.src = baseSrc;
 
             //Send data for tracking
-            if (locAname === 'RW-1-hallway-107') tracker.submitNetlifyForm();
+            tracker.submitNetlifyForm();
         }
     }
 

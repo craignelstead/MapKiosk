@@ -31,7 +31,8 @@
         </div>
         <iframe id="mapFrame" scrolling="no" src=""></iframe>
         <div id="bottombar">
-            <div id="navbuttons">
+            <form id="navbuttons" name="myForm" method="POST" 
+            data-netlify="true">
                 <select name="All Rooms" id="roomCat">
                     <option value="Classrooms">Classrooms</option>
                     <option value="Conference Rooms">Conference Rooms</option>
@@ -43,12 +44,14 @@
                     <option value="All Rooms">All Rooms</option>
                     -->
                 </select>
-                <select name="Room" id="roomID"></select>
+                <input type="hidden" name="form-name" value="myForm">
+                <input type="hidden" name ="LocA", id="locA">
+                <select name="LocB" id="roomID"></select>
                 <div id="adaBox">
-                    <input type="checkbox" id="adaCheck">
+                    <input type="checkbox" id="adaCheck" name="ADA">
                     <img id="adaIcon" src="./images/ada.svg.png">
                 </div>
-            </div>
+            </form>
             <p id="instructions">To get directions, select a room from the menu
                 or select and drag marker "B" on the map.
             </p>
