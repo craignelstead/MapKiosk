@@ -1,69 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!--IMPORTANT: Screen resolution must be set to 100% for page to load properly-->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>Rockwell West</title>
-    <link rel="stylesheet" href=".\styles.css">
+    <title>Home</title>
+    <!-- <link rel="stylesheet" href=".\styles.css"> -->
 </head>
 <body>
-    <div id="container">
-        <div id="topbar">
-            <!--
-                The h2 below with the id "buildingLocation" should have one of
-                the following values for the data-location attribute:
-                    RW-lobby
-                    RW-1-hallway-central
-                    RW-1-hallway-107
-                    RW-1-hallway-west
-                    RW-2-lobby
-                    RW-2-hallway-211
-                    RW-2-hallway-213
-                    RW-2-hallway-west
-                    RH-south-lobby
-                    RH-north-lobby
-                This value should be based on the kiosk's location and will be
-                used to determine the starting location (Marker A) on the map
-            -->
-            <h2 id="buildingLocation" data-location="RW-lobby">
-                Welcome to the College of Business! You are in </h2>
-        </div>
-        <iframe id="mapFrame" scrolling="no" src=""></iframe>
-        <div id="bottombar">
-            <div id="navbuttons">
-                <select name="All Rooms" id="roomCat">
-                    <option value="Classrooms">Classrooms</option>
-                    <option value="Conference Rooms">Conference Rooms</option>
-                    <option value="Study Rooms">Study Rooms</option>
-                    <option value="Academic Support">Academic Support</option>
-                    <!--
-                    <option value="Student Resources">Student Resources</option>
-                    <option value="Operations">Operations</option>
-                    <option value="All Rooms">All Rooms</option>
-                    -->
-                </select>
-                <select name="Room" id="roomID"></select>
-                <div id="adaBox">
-                    <input type="checkbox" id="adaCheck">
-                    <img id="adaIcon" src="./images/ada.svg.png">
-                </div>
-            </div>
-            <p id="instructions">To get directions, select a room from the menu
-                or select and drag marker "B" on the map.
-            </p>
-        </div>
-    </div>
-    <div id="touchContainer">
-        <div id="touchNotice">
-            <div id="touchDirections">
-                <h1>Need Directions?</h1>
-                <h1>Look Here!</h1>
-            </div>
-            <img src="./images/touch.png" alt="Touch Icon">
-            <h1>Touch screen to get started</h1>
-        </div>
-    </div>
-    <script src="./script.js" delay></script>   
+    <h2>Navigate to a kiosk location below:</h2>
+    <ul>
+        <li><a href="./rw_lobby.html">rw_lobby.html</a></li>
+        <li><a href="./rw-2-lobby.html">rw-2-lobby.html</a></li>
+        <li><a href="./rh_south_lobby.html">rh_south_lobby</a></li>
+    </ul>
+    <!-- <script src="./script.js" delay></script>    -->
 </body>
 </html>
