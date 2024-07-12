@@ -276,7 +276,7 @@ const GUI = (function(doc) {
             iframe.src = baseSrc;
 
             //Send data for tracking
-            //tracker.sendData(locAname, locBname, ada);
+            if (locAname === 'RW-1-hallway-107') tracker.submitNetlifyForm();
         }
     }
 
@@ -335,6 +335,10 @@ const GUI = (function(doc) {
         iframe.src = defaultSrc;
     }
 
+    function getForm () {
+        return doc.getElementById('navbuttons');
+    }
+
     updateWelcomeMsg();
     populateRoomList();
     defaultFrame();
@@ -349,49 +353,49 @@ const GUI = (function(doc) {
         buildingName,
         getKioskLocation,
         updateWelcomeMsg,
+        getForm,
     }
 })(document);
 
-//This will export data for tracking
+//This will export data for tracking using Netlify's built in form functions
 const tracker = (function() {
-    //API endpoint
-    const apiUrl = 'http://localhost:3000/api/data';
 
-    //Parameter: start point, end point, ada route
-    function sendData(fromLoc, toLoc, ada) {
-        console.log(`From ${fromLoc} to ${toLoc} ADA: ${ada}`);
-        const data = {
-            fromLoc: fromLoc,
-            toLoc: toLoc,
-            ada: ada,
-        }
-
-        fetch(apiUrl, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
-        })
-
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`Network response was not ok. Status: ${response.status} ${response.statusText}`);
-            }
-
-            return response.json();
-        })
-
-        .then(responseData => {
-            console.log('Data sent successfully:', responseData);
-        })
-
-        .catch(error => {
-            console.error('Error sending data:', error);
-        })
+    //Serialize the form data
+    const serializeFormData = (formData) => {
+        return new URLSearchParams(formData).toString();
     }
 
+    async function submitNetlifyForm () {
+        const form = GUI.getForm();
+        const locA = document.getElementById('locA');
+        locA.value = GUI.getKioskLocation().name;
+        const locB = document.getElementById('roomID');
+        const formData = new FormData(form);
+        const serializedData = serializeFormData(formData);
+
+        console.log(locB);
+        console.log(locB.value);
+
+        if (!locB.value) return;
+
+        try {
+            const response = await fetch('/', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded'},
+                body: serializedData
+            });
+
+            if (response.ok) {
+                console.log('Data successfully submitted');
+            } else {
+                console.error('Data submission error');
+            }
+        } catch (error) {
+            console.error('Data submission error', error);
+        }
+    }
+    
     return {
-        sendData,
+        submitNetlifyForm,
     }
 })();
