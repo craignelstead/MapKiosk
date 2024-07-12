@@ -81,7 +81,7 @@ const roomValues = (function() {
     addToArray(roomList, 'RH-037C', 'Study Rooms', '40.577374,-105.084152', '-1');
     addToArray(roomList, 'RW-003 Study Room', 'Study Rooms', '40.57770007062962,-105.08509621024025', '-1');
     addToArray(roomList, 'RW-004 Sonny Lubick Lounge', 'Study Rooms', '40.577705,-105.084969', '-1');
-    addToArray(roomList, 'RW-008 Study Space', 'Study Rooms', '40.577702,-105.085281', '-1');
+    addToArray(roomList, 'Cloud 9 Lounge', 'Study Rooms', '40.577702,-105.085281', '-1');
     addToArray(roomList, 'RW-101A', 'Study Rooms', '40.577763,-105.084892', '1');
     addToArray(roomList, 'RW-200 Student Forum', 'Study Rooms', '40.577702,-105.084824', '2');
     addToArray(roomList, 'RW-203 Study Room', 'Study Rooms', '40.577793,-105.084869', '2');
