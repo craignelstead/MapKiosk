@@ -373,9 +373,6 @@ const tracker = (function() {
         const formData = new FormData(form);
         const serializedData = serializeFormData(formData);
 
-        console.log(locB);
-        console.log(locB.value);
-
         if (!locB.value) return;
 
         try {
